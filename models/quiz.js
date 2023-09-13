@@ -1,10 +1,9 @@
 import mongoose from 'mongoose'
-import questionSchema from './question.js'
 
 // * SCHEMAS
 
 // QUESTION
-const questionSchema = new mongoose.schema({
+const questionSchema = new mongoose.Schema({
   question: { type: String, required: true, unique: true }, 
   answer: { type: String, requried: true, unique: true }, 
   addedBy: { type: mongoose.Schema.ObjectId, ref: 'User', required: true }
