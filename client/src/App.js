@@ -5,7 +5,7 @@ export default function App() {
   useEffect(() => {
     async function getData(){
       try {
-        await axios.get('/api/products') // <---- Replace with your endpoint to test the proxy
+        await axios.get('/api/quiz') // <---- Replace with your endpoint to test the proxy
       } catch (error) {
         console.log(error)
       }
