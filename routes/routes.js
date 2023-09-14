@@ -1,5 +1,5 @@
 import express from 'express'
-import { getSingleQuiz,updateSingleQuestion } from '../controllers/quiz.js'
+import { getSingleQuestion, getSingleQuiz,updateSingleQuestion } from '../controllers/quiz.js'
 
 import { registerUser, loginUser, getUserProfile } from '../controllers/users.js'
 
@@ -7,7 +7,10 @@ const router = express.Router()
 
 router.route('/quizzes/:id')
   .get(getSingleQuiz)
-  .put(/*secureRoute, */updateSingleQuestion)
+
+router.route('/quizzes/:quizId/:questionId')
+.get(getSingleQuestion)
+.put(/*secureRoute, */updateSingleQuestion)
 
 // ! Users
 // Register
