@@ -33,11 +33,12 @@ const seedDatabase = async () => {
     console.log(newUsers)
 
     // 5. Plant seed with quizzes in database
-    // 5.1 Add a unique ID to all questions
+    // 5.1 Add a unique ID to all questions 
+    // 5.2 Plant seed for quizzes in database
     const quizDataWithId = quizData.map( quiz => {
       const questionsWithId = quiz.questions.map( question => {
         const randomUser = Math.floor(Math.random() * newUsers.length)
-        return { ...question, addedBy: newUsers[randomUser]._id }
+        return { ...question, addedBy: newUsers[randomUser]._id}
       })
       quiz.questions = questionsWithId
       return quiz
