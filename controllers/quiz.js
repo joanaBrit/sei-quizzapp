@@ -28,3 +28,12 @@ export const getSingleQuiz = async (req, res) => {
   }
 
 }
+
+export const updateSingleQuestion = async (req,res) => {
+  const { id } = req.params
+  
+  if (!mongoose.isValidObjectId(id)){
+    return res.status(404).json('Not found')
+  }
+
+}
