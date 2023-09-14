@@ -18,16 +18,33 @@ const seedDatabase = async () => {
     console.log('🚀 Connection to the database established')
 
     // 2. Delete all users in the database until now
+    const { deletedCount: deletedUsers } = await User.deleteMany()
+    console.log(`❌ deleted ${deletedUsers} users from the database`)
 
     // 3. Delete all quizzes in the database until now 
     // ! Since users cannot alter the quizzes, maybe it is more appropriate to only delete questions? 
     // ! But since we are rebuilding afterwards anyways, it does not make as much of a difference 
+    const { deletedCount : deletedQuizzes } = await Quiz.deleteMany()
+    console.log(`❌ deleted ${deletedQuizzes} users from the database`)
 
     // 4. Plant seed with users in database
+    const newUsers = await User.create(userData)
+    console.log(`🌱 Panted seed by adding ${newUsers.length} users to the database`)
+    console.log(newUsers)
 
     // 5. Plant seed with quizzes in database
     // 5.1 Add a unique ID to all questions 
     // 5.2 Plant seed for quizzes in database
+    const quizDataWithId = quizData.map( quiz => {
+      const questionsWithId = quiz.questions.map( question => {
+        const randomUser = Math.floor(Math.random() * newUsers.length)
+        return { ...question, addedBy: newUsers[randomUser]._id}
+      })
+      quiz.questions = questionsWithId
+      return quiz
+    })
+
+    console.log(`🌱 Planted seed by adding ${quizDataWithId.length} with ${quizData[0].questions.length} and ${quizData[1].questions.length} questions to the database`)
     
     // Close connection to the database 
     await mongoose.connection.close()
