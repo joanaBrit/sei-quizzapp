@@ -12,7 +12,7 @@ import userData from './data/users.js'
 
 // seed database function
 const seedDatabase = async () => {
-  try{
+  try {
     // 1. connect to the data base
     await mongoose.connect(process.env.CONNECTION_STRING) // ! I am not sure if it is correct to awaiit mongoose.connect()
     console.log('🚀 Connection to the database established')
@@ -24,8 +24,8 @@ const seedDatabase = async () => {
     // 3. Delete all quizzes in the database until now 
     // ! Since users cannot alter the quizzes, maybe it is more appropriate to only delete questions? 
     // ! But since we are rebuilding afterwards anyways, it does not make as much of a difference 
-    const { deletedCount : deletedQuizzes } = await Quiz.deleteMany()
-    console.log(`❌ deleted ${deletedQuizzes} users from the database`)
+    const { deletedCount: deletedQuizzes } = await Quiz.deleteMany()
+    console.log(`❌ deleted ${deletedQuizzes} quizzes from the database`)
 
     // 4. Plant seed with users in database
     const newUsers = await User.create(userData)
@@ -33,18 +33,18 @@ const seedDatabase = async () => {
     console.log(newUsers)
 
     // 5. Plant seed with quizzes in database
-    // 5.1 Add a unique ID to all questions 
-    // 5.2 Plant seed for quizzes in database
+    // 5.1 Add a unique ID to all questions
     const quizDataWithId = quizData.map( quiz => {
       const questionsWithId = quiz.questions.map( question => {
         const randomUser = Math.floor(Math.random() * newUsers.length)
-        return { ...question, addedBy: newUsers[randomUser]._id}
+        return { ...question, addedBy: newUsers[randomUser]._id }
       })
       quiz.questions = questionsWithId
       return quiz
     })
-
-    console.log(`🌱 Planted seed by adding ${quizDataWithId.length} with ${quizData[0].questions.length} and ${quizData[1].questions.length} questions to the database`)
+    // 5.2 Plant seed for quizzes in database
+    const newQuizzes = await Quiz.create(quizDataWithId)
+    console.log(`🌱 Planted seed by adding ${newQuizzes.length} quizzes with ${quizData[0].questions.length} and ${quizData[1].questions.length} questions to the database`)
     
     // Close connection to the database 
     await mongoose.connection.close()
