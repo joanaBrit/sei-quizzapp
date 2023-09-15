@@ -3,15 +3,15 @@ import mongoose from 'mongoose'
 import Quiz from '../models/quiz.js'
 
 export const getSingleQuiz = async (req, res) => {
-  const { id } = req.params
+  const { quizId } = req.params
   
-  if (!mongoose.isValidObjectId(id)){
+  if (!mongoose.isValidObjectId(quizId)){
     return res.status(404).json('Not found')
   }
 
   try {
 
-    const quizzes = await Quiz.findById(id)
+    const quizzes = await Quiz.findById(quizId)
 
     if(!quizzes){
       throw new Error('Quiz not present in database')

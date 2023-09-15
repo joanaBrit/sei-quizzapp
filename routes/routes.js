@@ -5,10 +5,10 @@ import { registerUser, loginUser, getUserProfile } from '../controllers/users.js
 
 const router = express.Router()
 
-router.route('/quizzes/:id')
+router.route('/quiz/:quizId')
   .get(getSingleQuiz)
 
-router.route('/quizzes/:quizId/:questionId')
+router.route('/quiz/:quizId/:questionId')
 .get(getSingleQuestion)
 .put(/*secureRoute, */updateSingleQuestion)
 
