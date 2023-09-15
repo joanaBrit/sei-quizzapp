@@ -1,29 +1,34 @@
 import express from 'express'
-import { getSingleQuestion, getSingleQuiz, updateSingleQuestion } from '../controllers/quiz.js'
+import { getAllQuizzes, getSingleQuestion, getSingleQuiz, updateSingleQuestion } from '../controllers/quiz.js'
 
 import { registerUser, loginUser, getUserProfile } from '../controllers/users.js'
 
 const router = express.Router()
 
-router.route('/quiz/:quizId')
+// ! Quizzes
+// Index route
+router.route('/quizzes')
+  .get(getAllQuizzes)
+
+router.route('/quizzes/:id')
   .get(getSingleQuiz)
 
-router.route('/quiz/:quizId/:questionId')
-.get(getSingleQuestion)
-.put(/*secureRoute, */updateSingleQuestion)
+router.route('/quizzes/:quizId/:questionId')
+  .get(getSingleQuestion)
+  .put(/*secureRoute, */updateSingleQuestion)
 
 // ! Users
 // Register
 router.route('/register')
-.post(registerUser)
+  .post(registerUser)
 
 // Login
 router.route('/login')
-.post(loginUser)
+  .post(loginUser)
 
 // Profile
 router.route('/profile')
-.get(getUserProfile)
+  .get(getUserProfile)
 
 
 export default router

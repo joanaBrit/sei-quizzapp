@@ -15,7 +15,7 @@ app.use((req, res, next) => {
 
 
 // * ROUTES
-app.use(router)
+app.use('/api', router)
 
 
 // * NOT FOUND ROUTE 

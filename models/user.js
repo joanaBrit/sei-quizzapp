@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 
 
 // * SCHEMA 
@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
 // LocalField - user doc should match a field on the quizz doc (addedBy)
 // userSchema
 // .virtual('quizzesAdded', { //not sure which name will be
-//   ref: 'quizz',
+//   ref: 'quiz',
 //   localField: '_id',
 //   foreignField: 'addedBy'
 // })
