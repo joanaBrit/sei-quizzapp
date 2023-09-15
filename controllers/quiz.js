@@ -2,6 +2,18 @@
 import mongoose from 'mongoose'
 import Quiz from '../models/quiz.js'
 
+
+// * Index route
+// get / quizzes
+export const getAllQuizzes = async (req, res) => {
+  const quizzes = await Quiz.find()
+  return res.json(quizzes)
+}
+
+
+
+// * Show route
+
 export const getSingleQuiz = async (req, res) => {
   const { id } = req.params
   
