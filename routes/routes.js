@@ -1,5 +1,5 @@
 import express from 'express'
-import { getSingleQuestion, getSingleQuiz,updateSingleQuestion } from '../controllers/quiz.js'
+import { getSingleQuestion, getSingleQuiz, updateSingleQuestion } from '../controllers/quiz.js'
 
 import { registerUser, loginUser, getUserProfile } from '../controllers/users.js'
 
