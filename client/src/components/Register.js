@@ -24,7 +24,7 @@ export default function Register() {
 
   return (
     function register() {
-      return axios.post('/api/register')
+      return axios.post('/register')
     }
   )
 }

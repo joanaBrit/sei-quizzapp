@@ -18,7 +18,7 @@ export const registerUser = async (req, res) => {
 export const loginUser = async (req, res) => {
 
   const { email, password } = req.body
-  
+
 
   try {
     const userLogin = await User.findOne({ email })
@@ -30,7 +30,11 @@ export const loginUser = async (req, res) => {
     // send the token if they match
     const token = jwt.sign({ sub: userLogin._id }, process.env.SECRET, { expiresIn: '10d' })
 
-    return res.json({ message: `Welcome back, ${userLogin.username}, nice to see you!`, token: token })
+    return res.json({
+      message: `Welcome back, ${userLogin.username}, nice to see you!`,
+      token: token,
+      username: userLogin.username
+    })
   } catch (error) {
     return res.status(401).json({ error: '⛔ Unauthorized' })
   }
