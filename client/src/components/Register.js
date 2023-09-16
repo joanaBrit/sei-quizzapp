@@ -1,3 +1,4 @@
+import RegisterForm from './RegisterForm'
 import axios from 'axios'
 
 export default function Register() {
@@ -22,9 +23,11 @@ export default function Register() {
     }
   ]
 
+  function register(formData) {
+    return axios.post('/register', formData)
+  }
+
   return (
-    function register() {
-      return axios.post('/register')
-    }
+    <RegisterForm title="Register" request={register} fields={fields} redirect='/login' />
   )
 }
