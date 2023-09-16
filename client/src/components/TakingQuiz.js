@@ -6,29 +6,47 @@ import { useParams } from 'react-router-dom'
 
 export default function TakingQuiz(){
 
-  const { quizId } = useParams()
-  const [quiz, setQuiz] = useState()
+  const { id } = useParams()
+  const [quiz, setQuiz] = useState('')
+  const [answer, setAnswer] = useState('')
+  const [userInput, setUserInput] = useState('')
+  const [correctAnswer, setCorrectAnswer] = useState('')
 
   useEffect(() => {
     async function getQuizSingle(){
-      const { data } = await axios.get(`/api/quiz/${quizId}`)
-      console.log(data)
+      const { data } = await axios.get(`/api/quizzes/${id}`)
       setQuiz(data)
     }
     getQuizSingle()
   }, [])
 
+  const handleChange = (event) => {
+    setUserInput(event.target.value)
+  }
+
+  const handleClick = () => {
+    setAnswer(userInput)
+  }
+
+  useEffect(() => {
+    console.log(answer)
+  }, [answer])
+
+  
+
   return (
     <>
       <section id='Quiz-container'>
         <h1>{quiz && quiz.title}</h1>
-        <section id='question-container'>
-          {quiz && quiz.map((questions, i) => {
-            return <p key={i}>
-              {questions}
-            </p>
-          })}
-        </section>
+        {quiz && quiz.questions.map(({ question },i) => {
+          return (
+            <section key={i} id='question-container'>
+              <p>{question}</p>
+              <input placeholder='Answer' autoComplete='off' onChange={handleChange}></input>
+              <button onClick={handleClick}>Submit</button>
+            </section>
+          )
+        })}
       </section>
     </>
   )

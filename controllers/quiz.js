@@ -15,15 +15,15 @@ export const getAllQuizzes = async (req, res) => {
 // * Show route
 
 export const getSingleQuiz = async (req, res) => {
-  const { quizId } = req.params
+  const { id } = req.params
   
-  if (!mongoose.isValidObjectId(quizId)){
+  if (!mongoose.isValidObjectId(id)){
     return res.status(404).json('Not found')
   }
 
   try {
 
-    const quizzes = await Quiz.findById(quizId)
+    const quizzes = await Quiz.findById(id)
 
     if(!quizzes){
       throw new Error('Quiz not present in database')
