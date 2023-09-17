@@ -27,8 +27,8 @@ export default function Landing() {
         <span>{username}</span>
       </nav>
       <main>
-        <section>
-          <h1 className="text-uppercase">Sei Quizz App</h1>
+        <section >
+          <h1 className="title text-center text-uppercase mb-5">Sei Quizz App</h1>
           {quizzes.map((quiz, _id) => <div key={_id}>
             {quiz.title}
             {/* {quiz.image} */}
@@ -37,7 +37,7 @@ export default function Landing() {
         <section>
           <p>Feeling inspired?</p>
           <Link to='/quizzes/:quizId'>
-            <Button type='button' className='btn btn-sm btn-light btn-block'>Add some Questions</Button>
+            <Button type='button' className='btn btn-sm btn-blue btn-block'>Add some Questions</Button>
           </Link>
         </section>
       </main>

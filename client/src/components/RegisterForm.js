@@ -1,5 +1,6 @@
 import { useState, Fragment, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+
 import { setToken } from '../utils/auth'
 import { stateValues, fieldValues } from '../utils/Common'
 
@@ -15,8 +16,9 @@ export default function RegisterForm({ title, request, fields, redirect, onLoad 
   const navigate = useNavigate()
 
   // * State
-  const [errors, setErrors] = useState('')
   const [formData, setFormData] = useState(stateValues(fields))
+  const [errors, setErrors] = useState('')
+
 
   // * Component render
   useEffect(() => {
@@ -25,9 +27,8 @@ export default function RegisterForm({ title, request, fields, redirect, onLoad 
         const { data } = await onLoad()
         setFormData(data)
       } catch (error) {
-        const errorMessage = (error.response.data && error.response.data.mensage) | 'An error ocurred'
         console.log(error)
-        setErrors(errorMessage)
+        setErrors(error)
       }
     }
     if (onLoad) {
@@ -58,67 +59,62 @@ export default function RegisterForm({ title, request, fields, redirect, onLoad 
       }
 
     } catch (error) {
-      // const errorMessage = error.response.data.mensage  
-      console.error(error)
-      // setErrors(errorMessage)
+      console.log(error)
+      const errorMessage = error.response.data._message || 'An error occurred.'
+      
+      // const errorData = error.response.data
+      // // be clear with the error for user understanding
+      // if (errorData.email) {
+      //   errorMessage.push('The email adrress is invalid.')
+      // }
+
+      // if (errorData.errors.password && errorData.errors.password.length < 4) {
+
+      //   // Remenber thata there is a minLenght in the backend of 4 letters
+      //   errorMessage.push('The password must have at least 4 characters long.')
+      // }
+      // if (errorMessages.length < 4) {
+      //   const errorMessage = errorMessages.join(' ')
+      //   console.error(errorMessage)
+      //   setErrors(errorMessage)
+      // }
+
+      console.error(errorMessage)
+      setErrors(errorMessage)
+
     }
+
   }
   //  ! Need to fix this JSX
   return (
-    <section className='form'>
-      <h1>{title}</h1>
+    <section className='centred'>
+      <h2 className="text-center fs-2 mb-5">{title}</h2>
       <Container>
         <Row>
-          {/* {fields.legth > 0 ? */}
-          <Col as="form" xs={{ span: 8, offset: 2 }} md={{ span: 6, offset: 3 }} onSubmit={handleSubmit} autoComplete='off'>
-            {/* {fieldValues(fields).map(field => {
-                const { type, name } = field */}
-            {/* return ( */}
-
-            {/* // <Fragment key={variable}> */}
-            <>
-              <label hidden htmlFor="username">Username</label>
-              <input
-                type="text"
-                name="username"
-                placeholder="Username"
-                value={formData.username}
-                onChange={handleChange}
-              />
-              <label hidden htmlFor="email">Email</label>
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={formData.email}
-                onChange={handleChange}
-              />
-              <label hidden htmlFor="password">Password</label>
-              <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={formData.password}
-                onChange={handleChange}
-              />
-              <label hidden htmlFor="passwordConfirmation">Password Confirmation</label>
-              <input
-                type="password"
-                name="passwordConfirmation"
-                placeholder="PasswordConfirmation"
-                value={formData.passwordConfirmation}
-                onChange={handleChange}
-              />
-            </>
-            {/* // </Fragment> */}
-            {/* ) */}
-            {/* })} */}
-            {errors && <p className='text-warning bold text-center mt-5'>{errors}</p>}
-            <button type="submit" className='btn btn-sm btn-light btn-block m-auto mt-5'>{title}</button>
-          </Col>
-          {/* :
+          {fields.length > 0 ?
+            <Col as="form" xs={{ span: 8, offset: 2 }} md={{ span: 6, offset: 3 }} onSubmit={handleSubmit} autoComplete='off'>
+              {fieldValues(fields).map(field => {
+                const { type, name, variable } = field
+                return (
+                  <Fragment key={variable}>
+                    <label hidden htmlFor={variable}>{name}</label>
+                    <input
+                      type={type}
+                      name={variable}
+                      placeholder={name}
+                      value={formData[variable]}
+                      onChange={handleChange}
+                      id={variable}
+                    />
+                  </Fragment>
+                )
+              })}
+              {errors && <p className='text-warning bold text-center mt-5'>{errors}</p>}
+              <button type="submit" className='btn btn-sm d-block m-auto mt-5'>{title}</button>
+            </Col>
+            :
             'Form Error'
-          } */}
+          }
         </Row>
       </Container>
     </section>

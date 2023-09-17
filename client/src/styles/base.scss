@@ -1,0 +1,46 @@
+
+body {
+  margin: 0;
+  background-color: $navy!important;
+  color: $light!important;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  @extend %flex-fill;
+}
+
+.centred {
+  @extend %flex-fill;
+  justify-content: center;
+  font-family: $font-f-base;
+}
+
+.title {
+  font-family: $font-f-title;
+  font-size: 6vw;
+  // font-weight: 600;
+  display: block;
+  line-height: 4;
+  word-spacing: 6px;
+  letter-spacing: 5px;
+  color: $light;
+  }
+
+
+.btn {
+  background-color: $light;
+  color: $blue;
+  border: 1px solid $blue;
+  &:hover {
+    background-color: transparent;
+    color: $light;
+    box-shadow: 7px -6px 2px 0px $blue;
+    border-radius: 3px;
+  }
+}

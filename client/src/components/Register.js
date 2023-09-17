@@ -24,10 +24,10 @@ export default function Register() {
   ]
 
   function register(formData) {
-    return axios.post('/register', formData)
+    return axios.post('/api/register', formData)
   }
 
   return (
-    <RegisterForm title="Register" request={register} fields={fields} redirect='/login' />
+    <RegisterForm title="Register" request={register} fields={fields} redirect="/" />
   )
 }
