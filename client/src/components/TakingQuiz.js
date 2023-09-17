@@ -10,26 +10,47 @@ export default function TakingQuiz(){
   const [quiz, setQuiz] = useState('')
   const [answer, setAnswer] = useState('')
   const [userInput, setUserInput] = useState('')
-  const [correctAnswer, setCorrectAnswer] = useState('')
-
+  const [correctAnswers, setCorrectAnswers] = useState('')
+  const [target, setTarget] = useState()
+  const [tick, setTick] = useState([])
+  const newTicks = []
+  
   useEffect(() => {
     async function getQuizSingle(){
       const { data } = await axios.get(`/api/quizzes/${id}`)
       setQuiz(data)
     }
     getQuizSingle()
-  }, [])
+  }, [tick])
 
-  const handleChange = (event) => {
+  function handleChange(event) {
     setUserInput(event.target.value)
   }
 
-  const handleClick = () => {
-    setAnswer(userInput)
+  function handleClick(e) {
+    e.preventDefault()
+    setAnswer(userInput.toLowerCase())
+    setCorrectAnswers(quiz && quiz.questions.map(({ answer }) => {
+      return answer.toLowerCase()
+    }))
   }
 
   useEffect(() => {
-    console.log(answer)
+    function checkAnswer() {
+      newTicks.push(correctAnswers && correctAnswers.map((correctAnswer, i) => {
+        if (parseFloat(target.id) === i) {
+          if (answer === correctAnswer){
+            return 'correct'
+          } else {
+            return 'wrong'
+          }
+        } else {
+          return tick[i]
+        }
+      }))
+      setTick(...newTicks)
+    }
+    checkAnswer()
   }, [answer])
 
   
@@ -40,10 +61,13 @@ export default function TakingQuiz(){
         <h1>{quiz && quiz.title}</h1>
         {quiz && quiz.questions.map(({ question },i) => {
           return (
-            <section key={i} id='question-container'>
+            <section key={i} className='question-container'>
               <p>{question}</p>
-              <input placeholder='Answer' autoComplete='off' onChange={handleChange}></input>
-              <button onClick={handleClick}>Submit</button>
+              <form onSubmit={handleClick}>
+                <input placeholder='Answer' className='btnans' autoComplete='off' onChange={handleChange}></input>
+                <button id={i} type='submit' onClick={(e) => setTarget(e.currentTarget)}>Submit</button>
+                <p>Answer: {tick[i] === 'correct' ? <>&#x2713;</> : <>&times;</>}</p>
+              </form>
             </section>
           )
         })}
