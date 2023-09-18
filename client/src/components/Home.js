@@ -20,12 +20,12 @@ export default function Login() {
   }
 
   return (
-    <section className='centred'>
-      <h1 className="title text-center text-uppercase mb-5">Sei Quizz App</h1>
-      <section className='form-login'>
+    <section className='container'>
+      <h1 className="title text-uppercase mb-5">Sei Quiz App</h1>
+      <section className='form'>
         <RegisterForm title="Login" request={login} fields={fields} redirect="/landing" />
         <Link to='/register' className='link-btn'>
-          <button type="submit" className='btn btn-sm btn-blue btn-block m-auto btn-primary'>Register</button>
+          <button type="submit" className='btn btn-sm col-5 d-block mx-5 mb-2 '>Register</button>
         </Link>
       </section>
     </section>

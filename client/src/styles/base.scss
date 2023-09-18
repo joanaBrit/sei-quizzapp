@@ -1,46 +1,69 @@
-
 body {
   margin: 0;
-  background-color: $navy!important;
-  color: $light!important;
+  color: $light !important;
 }
 
 #root {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background-image: url('../images/futuristic.jpg');
+  background-size: cover;
 }
+
 
 main {
   @extend %flex-fill;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
-.centred {
+
+.container {
   @extend %flex-fill;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  font-family: $font-f-base;
+  padding: 30px;
 }
+
+
+.subtitle {
+  display: flex;
+  margin-left: 30px;
+}
+
+
+.text-warning {
+  padding: 0 15px;
+}
+
 
 .title {
   font-family: $font-f-title;
-  font-size: 6vw;
-  // font-weight: 600;
+  font-size: 50px;
   display: block;
-  line-height: 4;
-  word-spacing: 6px;
+  line-height: 3;
   letter-spacing: 5px;
-  color: $light;
-  }
+  color: #ebeae6;
+  padding: 0 10px;
+  margin-left: 13px;
+}
+
 
 
 .btn {
   background-color: $light;
-  color: $blue;
+  color: #ebeae6db !important;
   border: 1px solid $blue;
+
   &:hover {
-    background-color: transparent;
-    color: $light;
-    box-shadow: 7px -6px 2px 0px $blue;
-    border-radius: 3px;
+    background-color: #0065fff5 !important;
+    border-color: var(--bs-btn-hover-border-color);
+    color: $light !important;
+    box-shadow: 5px 4px 7px 0px #0de4f8;
   }
 }

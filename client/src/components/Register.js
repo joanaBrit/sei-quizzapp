@@ -19,7 +19,7 @@ export default function Register() {
     },
     {
       type: 'password',
-      name: 'password Confirmation',
+      name: 'Password Confirmation',
     }
   ]
 
@@ -28,6 +28,6 @@ export default function Register() {
   }
 
   return (
-    <RegisterForm title="Register" request={register} fields={fields} redirect="/" />
+    <RegisterForm className="register-btn" title="Register" request={register} fields={fields} redirect="/" />
   )
 }

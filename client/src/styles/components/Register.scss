@@ -2,14 +2,14 @@ form{
   input {
     width: 100%;
     border: none;
-    border-bottom: 1px solid $blue;
-    box-shadow: 8px 2px 6px 1px $blue;
-    border-radius: 3px;
-    padding: 8px 0px;
+    border-bottom: 2px solid #b3d1ff;
+    box-shadow: 3px 2px 6px 0px #b3d1ffa6;
+    border-radius: 8px;
+    padding: 5px 0px;
     margin: 4px;
     background-color: transparent;
     color: #ebeae6;
-    text-indent: 12px;
+    text-indent: 15px;
     &::placeholder {
       color: $light;
     }
@@ -19,5 +19,7 @@ form{
   }
 }
 
-
+.link-btn {
+  text-decoration: none;
+}
 

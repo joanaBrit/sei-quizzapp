@@ -1,19 +1,15 @@
-// * {
-//   box-sizing: border-box;
-// }
 
-@import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Coming+Soon&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nova+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani&display=swap');
 
-$font-f-base: 'Coming Soon', cursive;
-$font-f-title: 'Shadows Into Light', cursive;
+$font-f-title: 'Nova Mono', monospace;
+$font-f-base: 'Rajdhani', sans-serif;
 
 
 $navy: #001f4d;
 $blue: #b3d1ff;
 $light: #ebeae6;
 
-// $font-family-base: var()
 
 %flex-fill{
   display: flex;
