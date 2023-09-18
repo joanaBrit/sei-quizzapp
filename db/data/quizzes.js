@@ -8,6 +8,7 @@ export default [
         answer: 'An answer about react 2', 
       }
     ],
+    icon: '../assets/logo-react.png',
   }, 
   { title: 'Node', 
     questions: [ 
@@ -18,5 +19,6 @@ export default [
         answer: 'An answer about node 2', 
       }
     ],
+    icon: '../assets/logo-node.png',
   }
 ]
