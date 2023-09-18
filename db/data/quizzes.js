@@ -6,6 +6,9 @@ export default [
       }, 
       { question: 'A question about react 2 ', 
         answer: 'An answer about react 2', 
+      },
+      { question: 'A question about react 3 ', 
+        answer: 'An answer about react 3', 
       }
     ],
   }, 

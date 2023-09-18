@@ -8,12 +8,9 @@ export default function TakingQuiz(){
 
   const { id } = useParams()
   const [quiz, setQuiz] = useState('')
-  const [answer, setAnswer] = useState('')
-  const [userInput, setUserInput] = useState('')
   const [correctAnswers, setCorrectAnswers] = useState('')
-  const [target, setTarget] = useState()
-  const [tick, setTick] = useState([])
-  const newTicks = []
+  const [reveal, setReveal] = useState([])
+  const newReveal = []
   
   useEffect(() => {
     async function getQuizSingle(){
@@ -21,40 +18,29 @@ export default function TakingQuiz(){
       setQuiz(data)
     }
     getQuizSingle()
-  }, [tick])
-
-  function handleChange(event) {
-    setUserInput(event.target.value)
-  }
+  }, [])
 
   function handleClick(e) {
     e.preventDefault()
-    setAnswer(userInput.toLowerCase())
-    setCorrectAnswers(quiz && quiz.questions.map(({ answer }) => {
-      return answer.toLowerCase()
+    setCorrectAnswers(quiz && quiz.questions.map(({ answer }, i) => {
+      if (parseFloat(e.target.id) === i) {
+        if (reveal[i]) {
+          console.log(i)
+          console.log(reveal[i])
+          newReveal[i] = !reveal[i]
+        } else {
+          newReveal.push(true)
+        }
+      } else {
+        newReveal.push(false)
+      }
+      console.log()
+      setReveal(newReveal)
+      return answer
     }))
   }
-
-  useEffect(() => {
-    function checkAnswer() {
-      newTicks.push(correctAnswers && correctAnswers.map((correctAnswer, i) => {
-        if (parseFloat(target.id) === i) {
-          if (answer === correctAnswer){
-            return 'correct'
-          } else {
-            return 'wrong'
-          }
-        } else {
-          return tick[i]
-        }
-      }))
-      setTick(...newTicks)
-    }
-    checkAnswer()
-  }, [answer])
-
+  console.log(reveal)
   
-
   return (
     <>
       <section id='Quiz-container'>
@@ -62,12 +48,8 @@ export default function TakingQuiz(){
         {quiz && quiz.questions.map(({ question },i) => {
           return (
             <section key={i} className='question-container'>
-              <p>{question}</p>
-              <form onSubmit={handleClick}>
-                <input placeholder='Answer' className='btnans' autoComplete='off' onChange={handleChange}></input>
-                <button id={i} type='submit' onClick={(e) => setTarget(e.currentTarget)}>Submit</button>
-                <p>Answer: {tick[i] === 'correct' ? <>&#x2713;</> : <>&times;</>}</p>
-              </form>
+              <h5 id={i} onClick={handleClick}>{question}</h5>
+              <p>{(reveal && reveal[i]) ? correctAnswers[i] : ''}</p>
             </section>
           )
         })}
