@@ -25,7 +25,7 @@ export default function App() {
           <Route path='/' element={<Home />} />
           <Route path='/quizzes/:id' element={<TakingQuiz />} />
           <Route path='/register' element={<Register />} />
-          <Route path='/login' element={<Landing />} />
+          <Route path='/landing' element={<Landing />} />
         </Routes>
       </main>
     </BrowserRouter>
