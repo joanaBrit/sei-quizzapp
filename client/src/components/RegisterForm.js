@@ -61,7 +61,7 @@ export default function RegisterForm({ title, request, fields, redirect, onLoad 
     } catch (error) {
       console.log(error)
       const errorMessage = error.response.data._message || 'An error occurred.'
-      
+      console.log(JSON.stringify(error))
       // const errorData = error.response.data
       // // be clear with the error for user understanding
       // if (errorData.email) {
