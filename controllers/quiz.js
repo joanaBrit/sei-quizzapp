@@ -112,14 +112,13 @@ export const addSingleQuestion = async (req,res) => {
     console.log(foundQuiz.questions)
     
     //add userId to question. The user Id is added to the request via the token in the secure route. 
-    console.log('body', req.body)
-    console.log('body', req.user._id)
-    //replace id with req.user._id
-    const newQuestion = { ...req.body, addedBy: '650840b52372711e42bc52c9' }
+    const newQuestion = { ...req.body, addedBy: req.user._id }
 
     // append a question to the questions array of that quiz
     foundQuiz.questions = [ ...foundQuiz.questions, newQuestion]
-    console.log(foundQuiz)
+
+    // Status 201 means "created"
+    return res.status(201).json( foundQuiz )
   } catch (error) {
     console.log(error)
   }

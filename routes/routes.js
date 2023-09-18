@@ -1,4 +1,5 @@
 import express from 'express'
+import { secureRoute } from './secureRoutes.js'
 import { getAllQuizzes, getSingleQuestion, getSingleQuiz, updateSingleQuestion, addSingleQuestion } from '../controllers/quiz.js'
 
 import { registerUser, loginUser, getUserProfile } from '../controllers/users.js'
@@ -14,7 +15,7 @@ router.route('/quizzes/:id')
   .get(getSingleQuiz)
 
 router.route('/quizzes/:quizId/questions')
-  .post(addSingleQuestion)
+  .post(secureRoute, addSingleQuestion)
 
 router.route('/quizzes/:quizId/:questionId')
   .get(getSingleQuestion)
