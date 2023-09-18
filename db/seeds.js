@@ -37,7 +37,7 @@ const seedDatabase = async () => {
     const quizDataWithId = quizData.map( quiz => {
       const questionsWithId = quiz.questions.map( question => {
         const randomUser = Math.floor(Math.random() * newUsers.length)
-        return { ...question, addedBy: newUsers[randomUser]._id}
+        return { ...question, addedBy: newUsers[randomUser]._id }
       })
       quiz.questions = questionsWithId
       return quiz
