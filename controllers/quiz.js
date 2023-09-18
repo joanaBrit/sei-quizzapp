@@ -109,6 +109,7 @@ export const addSingleQuestion = async (req,res) => {
 
     // find the quiz with the id from the request
     const foundQuiz = await Quiz.findById(quizId)
+    if (!foundQuiz) throw new Error('Quiz not found')
     console.log(foundQuiz.questions)
     
     //add userId to question. The user Id is added to the request via the token in the secure route. 
@@ -120,6 +121,7 @@ export const addSingleQuestion = async (req,res) => {
     // Status 201 means "created"
     return res.status(201).json( foundQuiz )
   } catch (error) {
-    console.log(error)
+    console.log(error.message)
+    return res.json( { error: error.message })
   }
 }
