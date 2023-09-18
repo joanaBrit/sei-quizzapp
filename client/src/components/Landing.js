@@ -31,7 +31,7 @@ export default function Landing() {
         <section >
           <h1 className="title text-center text-uppercase mb-5">Sei Quizz App</h1>
           {quizzes.map(({ title, _id },i) => <div key={i}>
-            <Link to={`/quizzes/${_id}`}>
+            <Link to={`/quizzes/${_id}`}> {/* Just an idea on how this should look like, we can change the link or anything to other things, but i had to use {title, _id } to make things easier */}
               {title}
               {/* {quiz.image} */}
             </Link>
