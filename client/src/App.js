@@ -5,6 +5,7 @@ import TakingQuiz from './components/TakingQuiz'
 import Landing from './components/Landing'
 import Register from './components/Register'
 import Home from './components/Home'
+import AddQuestionForm from './components/AddQuestionForm'
 
 export default function App() {
   useEffect(() => {
@@ -26,6 +27,7 @@ export default function App() {
           <Route path='/quizzes/:id' element={<TakingQuiz />} />
           <Route path='/register' element={<Register />} />
           <Route path='/landing' element={<Landing />} />
+          <Route path='/quizzes/:id/questions' element={<AddQuestionForm />} />
         </Routes>
       </main>
     </BrowserRouter>
