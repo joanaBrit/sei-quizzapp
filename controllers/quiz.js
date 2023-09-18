@@ -25,7 +25,7 @@ export const getSingleQuiz = async (req, res) => {
 
     const quizzes = await Quiz.findById(id)
 
-    if(!quizzes){
+    if (!quizzes){
       throw new Error('Quiz not present in database')
     }
 
@@ -58,7 +58,7 @@ export const getSingleQuestion = async (req, res) => {
     const question = singleQuiz.questions.id(questionId)
 
 
-    if(!question){
+    if (!question){
       throw new Error('Question not present in database')
     }
 
@@ -86,7 +86,7 @@ export const updateSingleQuestion = async (req,res) => {
 
     const question = singleQuiz.questions.id(questionId)
 
-    if(!question) return res.status(404).json('Question not found')
+    if (!question) return res.status(404).json('Question not found')
 
     Object.assign(question, req.body)
     await question.save()
@@ -97,4 +97,30 @@ export const updateSingleQuestion = async (req,res) => {
     return res.status(422).json(error)
   }
 
+}
+
+// * POST Route 
+export const addSingleQuestion = async (req,res) => {
+  console.log('HIT ADD SINGLE QUESTION ROUTE')
+
+  const { quizId } = req.params
+  try {
+    console.log(quizId)
+
+    // find the quiz with the id from the request
+    const foundQuiz = await Quiz.findById(quizId)
+    console.log(foundQuiz.questions)
+    
+    //add userId to question. The user Id is added to the request via the token in the secure route. 
+    console.log('body', req.body)
+    console.log('body', req.user._id)
+    //replace id with req.user._id
+    const newQuestion = { ...req.body, addedBy: '650840b52372711e42bc52c9' }
+
+    // append a question to the questions array of that quiz
+    foundQuiz.questions = [ ...foundQuiz.questions, newQuestion]
+    console.log(foundQuiz)
+  } catch (error) {
+    console.log(error)
+  }
 }

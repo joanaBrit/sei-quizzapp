@@ -1,5 +1,5 @@
 import express from 'express'
-import { getAllQuizzes, getSingleQuestion, getSingleQuiz, updateSingleQuestion } from '../controllers/quiz.js'
+import { getAllQuizzes, getSingleQuestion, getSingleQuiz, updateSingleQuestion, addSingleQuestion } from '../controllers/quiz.js'
 
 import { registerUser, loginUser, getUserProfile } from '../controllers/users.js'
 
@@ -12,6 +12,9 @@ router.route('/quizzes')
 
 router.route('/quizzes/:id')
   .get(getSingleQuiz)
+
+router.route('/quizzes/:quizId/questions')
+  .post(addSingleQuestion)
 
 router.route('/quizzes/:quizId/:questionId')
   .get(getSingleQuestion)
