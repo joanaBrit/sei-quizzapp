@@ -25,8 +25,6 @@ export default function TakingQuiz(){
     setCorrectAnswers(quiz && quiz.questions.map(({ answer }, i) => {
       if (parseFloat(e.target.id) === i) {
         if (reveal[i]) {
-          console.log(i)
-          console.log(reveal[i])
           newReveal[i] = !reveal[i]
         } else {
           newReveal.push(true)
