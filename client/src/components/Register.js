@@ -28,6 +28,9 @@ export default function Register() {
   }
 
   return (
-    <RegisterForm className="register-btn" title="Register" request={register} fields={fields} redirect="/" />
+    <section className='container'>
+      <h1 className="title text-uppercase mb-5">Sei Quiz App</h1>
+      <RegisterForm title="Register" request={register} fields={fields} redirect="/" />
+    </section>
   )
 }

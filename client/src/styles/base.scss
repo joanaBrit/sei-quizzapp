@@ -22,15 +22,6 @@ main {
 }
 
 
-.container {
-  @extend %flex-fill;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 30px;
-}
-
-
 .subtitle {
   display: flex;
   margin-left: 30px;
