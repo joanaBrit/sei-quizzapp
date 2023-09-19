@@ -1,4 +1,4 @@
-import RegisterForm from './Form'
+import Form from './Form'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 
@@ -23,7 +23,7 @@ export default function Login() {
     <section className='container'>
       <h1 className="title text-uppercase mb-5">Sei Quiz App</h1>
       <section className='form'>
-        <RegisterForm title="Login" request={login} fields={fields} redirect="/landing" />
+        <Form title="Login" request={login} fields={fields} redirect="/landing" />
 
         <Link to='/register' className='link-btn'>
           <div className='regl'>

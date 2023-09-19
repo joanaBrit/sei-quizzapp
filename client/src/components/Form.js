@@ -19,7 +19,6 @@ export default function RegisterForm({ title, request, fields, redirect, onLoad 
   const [formData, setFormData] = useState(stateValues(fields))
   const [errors, setErrors] = useState('')
 
-
   // * Component render
   useEffect(() => {
     async function fillUpForm() {

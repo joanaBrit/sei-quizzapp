@@ -30,7 +30,7 @@ export default function Landing() {
       <main>
         <section >
           <h1 className="title text-center text-uppercase mb-5">Sei Quizz App</h1>
-          {quizzes.map(({ title, _id },i) => <div key={i}>
+          {quizzes.map(({ title, _id }, i) => <div key={i}>
             <Link to={`/quizzes/${_id}`}> {/* Just an idea on how this should look like, we can change the link or anything to other things, but i had to use {title, _id } to make things easier */}
               {title}
               {/* {quiz.image} */}
@@ -38,10 +38,12 @@ export default function Landing() {
           </div>)}
         </section>
         <section>
-          <p>Feeling inspired?</p>
-          <Link to={`/quizzes/${quizId}`}>
-            <Button type='button' className='btn btn-sm btn-blue btn-block'>Add some Questions</Button>
-          </Link>
+          <div className='add-question'>
+            <p>Feeling inspired?</p>
+            <Link to={`/quizzes/${quizId}`}>
+              <Button type='button' className='btn btn-sm btn-block'>Add Questions</Button>
+            </Link>
+          </div>
         </section>
       </main>
     </section>

@@ -1,4 +1,4 @@
-import RegisterForm from './Form'
+import Form from './Form'
 import axios from 'axios'
 
 export default function Register() {
@@ -30,7 +30,7 @@ export default function Register() {
   return (
     <section className='container'>
       <h1 className="title text-uppercase mb-5">Sei Quiz App</h1>
-      <RegisterForm title="Register" request={register} fields={fields} redirect="/" />
+      <Form title="Register" request={register} fields={fields} redirect="/" />
     </section>
   )
 }
