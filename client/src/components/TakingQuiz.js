@@ -9,7 +9,7 @@ export default function TakingQuiz(){
   const { id } = useParams()
   const [quiz, setQuiz] = useState('')
   const [correctAnswers, setCorrectAnswers] = useState('')
-  const [reveal, setReveal] = useState([])
+  const [reveal, setReveal] = useState([false])
   const newReveal = []
   
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function TakingQuiz(){
           newReveal.push(true)
         }
       } else {
-        newReveal.push(false)
+        newReveal.push(reveal[i])
       }
       console.log()
       setReveal(newReveal)
@@ -43,15 +43,13 @@ export default function TakingQuiz(){
     <>
       <section id='Quiz-container'>
         <h1>{quiz && quiz.title}</h1>
-        {quiz && quiz.questions.map(({ question },i) => {
+        {quiz && quiz.questions.map(({ question, _id },i) => {
           return (
             <>
-              <section key={i} className='question-container'>
+              <section key={_id} className='question-container'>
                 <h5 id={i} onClick={handleClick}>{question}</h5>
                 <p>{(reveal && reveal[i]) ? correctAnswers[i] : ''}</p>
               </section>
-              <button>Previous question</button>
-              <button>Next question</button>
             </>
           )
         })}
