@@ -43,14 +43,12 @@ export default function TakingQuiz(){
     <>
       <section id='Quiz-container'>
         <h1>{quiz && quiz.title}</h1>
-        {quiz && quiz.questions.map(({ question, _id },i) => {
+        {quiz && quiz.questions.map(({ question },i) => {
           return (
-            <>
-              <section key={_id} className='question-container'>
-                <h5 id={i} onClick={handleClick}>{question}</h5>
-                <p>{(reveal && reveal[i]) ? correctAnswers[i] : ''}</p>
-              </section>
-            </>
+            <section key={i} className='question-container'>
+              <h5 id={i} onClick={handleClick}>{question}</h5>
+              <p>{(reveal && reveal[i]) ? correctAnswers[i] : ''}</p>
+            </section>
           )
         })}
       </section>
