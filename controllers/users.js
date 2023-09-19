@@ -33,7 +33,7 @@ export const loginUser = async (req, res) => {
     return res.json({
       message: `Welcome back, ${userLogin.username}, nice to see you!`,
       token: token,
-      username: userLogin.username
+      username: userLogin.username,
     })
   } catch (error) {
     return res.status(401).json({ error: '⛔ Unauthorized' })
