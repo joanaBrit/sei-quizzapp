@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { useParams } from 'react-router-dom'
 
 import NavBar from './NavBar'
 
@@ -8,7 +9,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
 
-export default function AddQuestionForm( { username, quizId, token }) {
+export default function AddQuestionForm( { username, token }) {
 
   const fields = [
     {
@@ -16,17 +17,15 @@ export default function AddQuestionForm( { username, quizId, token }) {
       Answer: 'Username',
     }
   ]
+  const { quizId } = useParams()
 
   async function submitQuestion(event){
     event.preventDefault()
     console.log('handle submit')
     console.log(event.target[0].value, event.target[1].value)
 
-    const { data } = await axios.get('/api/quizzes')
-    console.log(data)
 
-
-    axios.post(`/api/quizzes/${quizId}/questions`,     {
+    await axios.post(`/api/quizzes/${quizId}/questions`,     {
       question: event.target[0].value,
       answer: event.target[1].value,
     }, {

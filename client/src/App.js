@@ -1,10 +1,10 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import axios from 'axios'
 import TakingQuiz from './components/TakingQuiz'
 import Landing from './components/Landing'
 import Register from './components/Register'
-import Home from './components/Home'
+import Login from './components/Home'
 import AddQuestionForm from './components/AddQuestionForm'
 
 export default function App() {
@@ -19,19 +19,25 @@ export default function App() {
     getData()
   }, [])
 
+  const [token, setToken] = useState()
+
+
+
   return (
+    
     <BrowserRouter>
       <main>
         <Routes>
-          <Route path='/' element={<Home />} />
+          <Route path='/' element={<Login />}
+            token={token}
+            setToken={setToken}
+          />
           <Route path='/quizzes/:id' element={<TakingQuiz />} />
           <Route path='/register' element={<Register />} />
           <Route path='/landing' element={<Landing />} />
-          <Route path='/quizzes/:id/questions' element={<AddQuestionForm 
-            quizId = { '6508787b50fd9df435ad8c6b' } 
-
+          <Route path='/quizzes/:quizId/questions' element={<AddQuestionForm 
             //token should be received from login 
-            token = { 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTA4Nzg3YjUwZmQ5ZGY0MzVhZDhjNjUiLCJpYXQiOjE2OTUxMzUxNDgsImV4cCI6MTY5NTk5OTE0OH0.2z6PqBHJji49_a9xXjOl-GVdLOi-x2DCcVSkOBLS-iI'}
+            token = { token }
           />} />
         </Routes>
       </main>
