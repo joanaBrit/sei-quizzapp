@@ -70,7 +70,7 @@ export default function RegisterForm({ title, request, fields, redirect, onLoad 
 
   return (
     <section>
-      <h2 className="subtitle fs-2 mb-5">{title}</h2>
+      <h2 className="subtitle fs-2 mb-4">{title}</h2>
       <Container>
         <Row>
           {fields.length > 0 ?

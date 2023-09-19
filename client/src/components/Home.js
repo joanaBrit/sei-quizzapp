@@ -1,4 +1,4 @@
-import RegisterForm from './RegisterForm'
+import RegisterForm from './Form'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 
