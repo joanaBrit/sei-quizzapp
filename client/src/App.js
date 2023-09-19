@@ -24,14 +24,11 @@ export default function App() {
 
 
   return (
-    
     <BrowserRouter>
       <main>
         <Routes>
-          <Route path='/' element={<Login />}
-            token={token}
-            setToken={setToken}
-          />
+          <Route path='/' element={<Login 
+            setToken={setToken} />}/>
           <Route path='/quizzes/:id' element={<TakingQuiz />} />
           <Route path='/register' element={<Register />} />
           <Route path='/landing' element={<Landing />} />

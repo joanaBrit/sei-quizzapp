@@ -3,7 +3,7 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 
 
-export default function Login( { token, setToken }) {
+export default function Login( { token, setToken } ) {
   const fields = [
     {
       type: 'email',
@@ -15,11 +15,11 @@ export default function Login( { token, setToken }) {
     }
   ]
 
+
   async function login(formData) {
     const response = await axios.post('/api/login', formData)
-    console.log(response.data.token)
-    console.log(setToken)
-    // setToken(response.data.token)
+    const token = response.data.token
+    setToken(response.data.token)
     return response
 
   }
