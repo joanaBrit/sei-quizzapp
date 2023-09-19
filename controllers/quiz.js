@@ -6,6 +6,7 @@ import Quiz from '../models/quiz.js'
 // * Index route
 // get / quizzes
 export const getAllQuizzes = async (req, res) => {
+  console.log('HIT GET ALL QUIZZES ROUTE')
   const quizzes = await Quiz.find()
   return res.json(quizzes)
 }

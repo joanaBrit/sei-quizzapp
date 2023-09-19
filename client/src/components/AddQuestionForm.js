@@ -1,6 +1,4 @@
 import axios from 'axios'
-import { Link } from 'react-router-dom'
-import Button from 'react-bootstrap/Button'
 
 import NavBar from './NavBar'
 
@@ -9,16 +7,27 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
-function handleSubmit(){
-  console.log('handle submit')
-  //I guess this is where the post request should be sent 
-}
-function handleChange(){
-  console.log('handle change')
-  //I guess this is where the post request should be sent 
-}
 
 export default function AddQuestionForm( { username, quiz }) {
+
+  const fields = [
+    {
+      Question: 'text',
+      Answer: 'Username',
+    }
+  ]
+
+  async function submitQuestion(event){
+    event.preventDefault()
+    console.log('handle submit')
+    const { data } = await axios.get('/api/quizzes')
+    console.log(data)
+    //I guess this is where the post request should be sent 
+  }
+  function handleChange(){
+    console.log('change')
+  }
+
   return (
     <section>
       <header>
@@ -36,7 +45,7 @@ export default function AddQuestionForm( { username, quiz }) {
         </section>
         <Container>
           <Row>
-            <Col as="form" xs={{ span: 8, offset: 2 }} md={{ span: 6, offset: 3 }} onSubmit={handleSubmit} autoComplete='off'>
+            <Col as="form" xs={{ span: 8, offset: 2 }} md={{ span: 6, offset: 3 }} onSubmit={submitQuestion} autoComplete='off'>
 
               <label hidden htmlFor='question'>question</label>
               <input type='text' name='question' placeholder='Your question' onChange={handleChange} id='questionId'

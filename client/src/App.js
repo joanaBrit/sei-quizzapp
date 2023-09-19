@@ -11,7 +11,7 @@ export default function App() {
   useEffect(() => {
     async function getData() {
       try {
-        await axios.get('/api/')
+        await axios.get('/api')
       } catch (error) {
         console.log(error)
       }
