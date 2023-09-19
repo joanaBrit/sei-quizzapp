@@ -2,10 +2,10 @@ export default [
   { title: 'React', 
     questions: [ 
       { question: 'Hooks',
-        answer: '', 
+        answer: 'Hooks Answer', 
       }, 
       { question: 'Routes', 
-        answer: '', 
+        answer: 'Routes Answer', 
       }
     ],
     icon: '../assets/logo-react.png',
@@ -23,24 +23,30 @@ export default [
   },
   { title: 'Git', 
     questions: [ 
+      { question: 'A question about Git 1 ', 
+        answer: 'An answer about Git 1', 
+      }
     ],
     icon: '',
   },
   { title: 'CSS', 
     questions: [ 
+      { question: 'A question about CSS 1 ', 
+        answer: 'An answer about CSS 1', 
+      }
     ],
     icon: '',
   },
   { title: 'JavaScript', 
     questions: [ 
       { question: 'Array functions', 
-        answer: '', 
+        answer: 'Array functions nswer', 
       }, 
       { question: 'Ternaries', 
-        answer: '', 
+        answer: 'Ternaries Answer', 
       }, 
       { question: 'Deconstructing', 
-        answer: '', 
+        answer: 'Deconstructing Answer', 
       }
     ],
     icon: '',
@@ -69,32 +75,44 @@ export default [
   },
   { title: 'HTTP Requests', 
     questions: [ 
+      { question: 'A question about HTTP 1 ', 
+        answer: 'An answer about HTTP 1', 
+      }
     ],
     icon: '',
   },
   { title: 'Express', 
     questions: [ 
+      { question: 'A question about Express 1 ', 
+        answer: 'An answer about Express 1', 
+      }
     ],
     icon: '',
   },
   { title: 'MongoDB', 
     questions: [ 
       { question: 'Mongoose', 
-        answer: '', 
+        answer: 'Mongoose Answer', 
       }, 
       { question: 'The Mongosh Shell', 
-        answer: '', 
+        answer: 'The Mongosh Shell Answer', 
       }
     ],
     icon: '../assets/logo-node.png',
   },
   { title: 'Python', 
     questions: [ 
+      { question: 'A question about Python 1 ', 
+        answer: 'An answer about Python 1', 
+      }
     ],
     icon: '',
   },
   { title: 'Django', 
     questions: [ 
+      { question: 'A question about Django 1 ', 
+        answer: 'An answer about Django 1', 
+      }
     ],
     icon: '',
   }

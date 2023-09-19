@@ -4,8 +4,8 @@ import mongoose from 'mongoose'
 
 // QUESTION
 const questionSchema = new mongoose.Schema({
-  question: { type: String, required: true, unique: true }, 
-  answer: { type: String, requried: true, unique: true }, 
+  question: { type: String, required: true }, 
+  answer: { type: String, required: true }, 
   addedBy: { type: mongoose.Schema.ObjectId, ref: 'User', required: true }, 
 })
 
