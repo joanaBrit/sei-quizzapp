@@ -36,6 +36,7 @@ export default function Landing() {
         </section>
         <section>
           <p>Feeling inspired?</p>
+          {/* This link should lead to `/quizzes/${_id}/questions` */}
           <Link to='/quizzes/:quizId'>
             <Button type='button' className='btn btn-sm btn-blue btn-block'>Add some Questions</Button>
           </Link>

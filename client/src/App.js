@@ -27,7 +27,12 @@ export default function App() {
           <Route path='/quizzes/:id' element={<TakingQuiz />} />
           <Route path='/register' element={<Register />} />
           <Route path='/landing' element={<Landing />} />
-          <Route path='/quizzes/:id/questions' element={<AddQuestionForm />} />
+          <Route path='/quizzes/:id/questions' element={<AddQuestionForm 
+            quizId = { '6508787b50fd9df435ad8c6b' } 
+
+            //token should be received from login 
+            token = { 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTA4Nzg3YjUwZmQ5ZGY0MzVhZDhjNjUiLCJpYXQiOjE2OTUxMzUxNDgsImV4cCI6MTY5NTk5OTE0OH0.2z6PqBHJji49_a9xXjOl-GVdLOi-x2DCcVSkOBLS-iI'}
+          />} />
         </Routes>
       </main>
     </BrowserRouter>

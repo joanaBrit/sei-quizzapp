@@ -8,7 +8,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
 
-export default function AddQuestionForm( { username, quiz }) {
+export default function AddQuestionForm( { username, quizId, token }) {
 
   const fields = [
     {
@@ -20,9 +20,26 @@ export default function AddQuestionForm( { username, quiz }) {
   async function submitQuestion(event){
     event.preventDefault()
     console.log('handle submit')
+    console.log(event.target[0].value, event.target[1].value)
+
     const { data } = await axios.get('/api/quizzes')
     console.log(data)
-    //I guess this is where the post request should be sent 
+
+
+    axios.post(`/api/quizzes/${quizId}/questions`,     {
+      question: event.target[0].value,
+      answer: event.target[1].value,
+    }, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    })
+      .then(function (response) {
+        console.log(response)
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
   }
   function handleChange(){
     console.log('change')
