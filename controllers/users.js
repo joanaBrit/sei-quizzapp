@@ -1,5 +1,6 @@
 import User from '../models/user.js'
 import jwt from 'jsonwebtoken'
+import { NotFound, Unauthorized, sendErrors } from '../utils/errors.js'
 
 
 // * Register
@@ -24,9 +25,10 @@ export const loginUser = async (req, res) => {
     const userLogin = await User.findOne({ email })
 
     // If the email don't match user
-    if (!userLogin) throw new Error('User Not Found')
+    if (!userLogin) throw new NotFound('User Not Found')
     // if Invalid Password
-    if (!userLogin.validatePassword(password)) throw new Error('Incorrect Password')
+    if (!userLogin.validatePassword(password)) throw new Unauthorized('Incorrect Password')
+
     // send the token if they match
     const token = jwt.sign({ sub: userLogin._id }, process.env.SECRET, { expiresIn: '10d' })
 
@@ -36,11 +38,11 @@ export const loginUser = async (req, res) => {
       username: userLogin.username,
     })
   } catch (error) {
-    return res.status(401).json({ error: '⛔ Unauthorized' })
+    sendErrors(error, res)
   }
 }
 
-
+// ! do we need to populate?
 // * Create a profile
 export const getUserProfile = async (req, res) => {
   const user = await User.findById(req.user._id)
