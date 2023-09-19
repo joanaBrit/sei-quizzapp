@@ -30,7 +30,6 @@ const seedDatabase = async () => {
     // 4. Plant seed with users in database
     const newUsers = await User.create(userData)
     console.log(`🌱 Panted seed by adding ${newUsers.length} users to the database`)
-    console.log(newUsers)
 
     // 5. Plant seed with quizzes in database
     // 5.1 Add a unique ID to all questions 
@@ -38,7 +37,7 @@ const seedDatabase = async () => {
     const quizDataWithId = quizData.map( quiz => {
       const questionsWithId = quiz.questions.map( question => {
         const randomUser = Math.floor(Math.random() * newUsers.length)
-        return { ...question, addedBy: newUsers[randomUser]._id}
+        return { ...question, addedBy: newUsers[randomUser]._id }
       })
       quiz.questions = questionsWithId
       return quiz
@@ -46,7 +45,7 @@ const seedDatabase = async () => {
     // 5.2 Plant seed for quizzes in database
     const newQuizzes = await Quiz.create(quizDataWithId)
     console.log(`🌱 Planted seed by adding ${newQuizzes.length} quizzes with ${quizData[0].questions.length} and ${quizData[1].questions.length} questions to the database`)
-    
+    console.log(newQuizzes)
     // Close connection to the database 
     await mongoose.connection.close()
     console.log('👋 Connecton to the database closed')
