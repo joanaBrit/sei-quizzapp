@@ -19,7 +19,7 @@ router.route('/quizzes/:quizId/questions')
 
 router.route('/quizzes/:quizId/:questionId')
   .get(getSingleQuestion)
-  .put(/*secureRoute, */updateSingleQuestion)
+  .put(secureRoute, updateSingleQuestion)
 
 // ! Users
 // Register

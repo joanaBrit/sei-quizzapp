@@ -9,7 +9,7 @@ export default function TakingQuiz(){
   const { id } = useParams()
   const [quiz, setQuiz] = useState('')
   const [correctAnswers, setCorrectAnswers] = useState('')
-  const [reveal, setReveal] = useState([])
+  const [reveal, setReveal] = useState([false])
   const newReveal = []
   
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function TakingQuiz(){
           newReveal.push(true)
         }
       } else {
-        newReveal.push(false)
+        newReveal.push(reveal[i])
       }
       console.log()
       setReveal(newReveal)

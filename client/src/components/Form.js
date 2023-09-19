@@ -19,7 +19,6 @@ export default function RegisterForm({ title, request, fields, redirect, onLoad 
   const [formData, setFormData] = useState(stateValues(fields))
   const [errors, setErrors] = useState('')
 
-
   // * Component render
   useEffect(() => {
     async function fillUpForm() {
@@ -57,42 +56,24 @@ export default function RegisterForm({ title, request, fields, redirect, onLoad 
       if (redirect) {
         navigate(redirect)
       }
-
+      //  ! Need to fix this ERRORS
     } catch (error) {
       console.log(error)
-      const errorMessage = error.response.data._message || 'An error occurred.'
-      
-      // const errorData = error.response.data
-      // // be clear with the error for user understanding
-      // if (errorData.email) {
-      //   errorMessage.push('The email adrress is invalid.')
-      // }
-
-      // if (errorData.errors.password && errorData.errors.password.length < 4) {
-
-      //   // Remenber thata there is a minLenght in the backend of 4 letters
-      //   errorMessage.push('The password must have at least 4 characters long.')
-      // }
-      // if (errorMessages.length < 4) {
-      //   const errorMessage = errorMessages.join(' ')
-      //   console.error(errorMessage)
-      //   setErrors(errorMessage)
-      // }
+      const errorMessage = error.response.data.message || 'An error occurred.'
 
       console.error(errorMessage)
-      setErrors(errorMessage)
-
+      setErrors(`${errorMessage} => Are you sure your password has a minimun of 4 letters and it's the same in both password fields? `)
+      console.log(JSON.stringify(error.response.data.message))
     }
-
   }
-  //  ! Need to fix this JSX
+
   return (
-    <section className='centred'>
-      <h2 className="text-center fs-2 mb-5">{title}</h2>
+    <section>
+      <h2 className="subtitle fs-2 mb-4">{title}</h2>
       <Container>
         <Row>
           {fields.length > 0 ?
-            <Col as="form" xs={{ span: 8, offset: 2 }} md={{ span: 6, offset: 3 }} onSubmit={handleSubmit} autoComplete='off'>
+            <Col as="form" xs={{ span: 8 }} md={{ span: 6 }} onSubmit={handleSubmit} autoComplete='off'>
               {fieldValues(fields).map(field => {
                 const { type, name, variable } = field
                 return (
@@ -109,8 +90,8 @@ export default function RegisterForm({ title, request, fields, redirect, onLoad 
                   </Fragment>
                 )
               })}
-              {errors && <p className='text-warning bold text-center mt-5'>{errors}</p>}
-              <button type="submit" className='btn btn-sm d-block m-auto mt-5'>{title}</button>
+              {errors && <p className='text-warning bold text mt-4'>{errors}</p>}
+              <button type="submit" className='btn btn-sm col-10 d-block m-auto mt-4'>{title}</button>
             </Col>
             :
             'Form Error'
