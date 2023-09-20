@@ -17,7 +17,7 @@ router.route('/quizzes/:id')
 router.route('/quizzes/:quizId/questions')
   .post(secureRoute, addSingleQuestion)
 
-router.route('/quizzes/:quizId/:questionId')
+router.route('/quizzes/:quizId/questions/:questionId')
   .get(getSingleQuestion)
   .put(secureRoute, updateSingleQuestion)
 

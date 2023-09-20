@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import axios from 'axios'
 import TakingQuiz from './components/TakingQuiz'
+import UpdatingQuestion from './components/UpdatingQuestion'
 import Landing from './components/Landing'
 import Register from './components/Register'
 import Login from './components/Home'
@@ -21,7 +22,7 @@ export default function App() {
 
   const [token, setToken] = useState()
 
-
+  console.log('TOKEN IN APP.JS', token)
 
   return (
     <BrowserRouter>
@@ -29,7 +30,12 @@ export default function App() {
         <Routes>
           <Route path='/' element={<Login 
             setToken={setToken} />}/>
-          <Route path='/quizzes/:id' element={<TakingQuiz />} />
+          <Route path='/quizzes/:id' element={<TakingQuiz 
+            token = { token }
+          />} />
+          <Route path='/quizzes/:quizId/questions/:questionId' element={<UpdatingQuestion 
+            token = { token }
+          />} />
           <Route path='/register' element={<Register />} />
           <Route path='/landing' element={<Landing />} />
           <Route path='/quizzes/:quizId/questions' element={<AddQuestionForm 

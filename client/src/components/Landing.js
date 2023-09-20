@@ -11,6 +11,7 @@ export default function Landing() {
   useEffect(() => {
     async function getQuizzesData() {
       try {
+        
         const { data } = await axios('/api/quizzes')
         setQuizzes(data)
       } catch (error) {
