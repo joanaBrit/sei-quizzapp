@@ -29,11 +29,7 @@ export const getSingleQuiz = async (req, res) => {
       throw new Error('Quiz not present in database')
     }
 
-    return res.json(quizzes
-      // .questions.map(quiz => {
-      // return quiz.question
-      // })
-    )
+    return res.json(quizzes)
   } catch (error) {
     console.log('ERROR ->', error)
     return res.status(422).json(error)
@@ -70,6 +66,7 @@ export const getSingleQuestion = async (req, res) => {
 
 }
 
+// * PUT Route 
 export const updateSingleQuestion = async (req,res) => {
   const { quizId, questionId } = req.params
   
