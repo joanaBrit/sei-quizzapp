@@ -29,10 +29,9 @@ export default function Landing() {
       <main>
         <section >
           <h1 className="title text-center text-uppercase mb-5">Sei Quizz App</h1>
-          {quizzes.map(({ title, _id }, i) => <div key={i}>
+          {quizzes.map(({ title, icon, _id }, i) => <div key={i}>
             <Link to={`/quizzes/${_id}`}> {/* Just an idea on how this should look like, we can change the link or anything to other things, but i had to use {title, _id } to make things easier */}
-              {title}
-              {/* {quiz.image} */}
+              <img alt={title} src={icon || 'Image not Found'} />
             </Link>
             <div className='add-question'>
               <Link to={`/quizzes/${_id}/questions`}>
