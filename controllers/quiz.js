@@ -6,6 +6,7 @@ import Quiz from '../models/quiz.js'
 // * Index route
 // get / quizzes
 export const getAllQuizzes = async (req, res) => {
+  console.log('HIT GET ALL QUIZZES ROUTE')
   const quizzes = await Quiz.find()
   return res.json(quizzes)
 }
@@ -110,13 +111,16 @@ export const addSingleQuestion = async (req,res) => {
     // find the quiz with the id from the request
     const foundQuiz = await Quiz.findById(quizId)
     if (!foundQuiz) throw new Error('Quiz not found')
-    console.log(foundQuiz.questions)
     
     //add userId to question. The user Id is added to the request via the token in the secure route. 
     const newQuestion = { ...req.body, addedBy: req.user._id }
 
     // append a question to the questions array of that quiz
     foundQuiz.questions = [ ...foundQuiz.questions, newQuestion]
+
+    await foundQuiz.save()
+
+    console.log(foundQuiz)
 
     // Status 201 means "created"
     return res.status(201).json( foundQuiz )

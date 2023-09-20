@@ -7,7 +7,6 @@ import Button from 'react-bootstrap/Button'
 
 export default function Landing() {
   const [quizzes, setQuizzes] = useState([])
-  const [quizId, setQuizId] = useState()
   const username = localStorage.getItem('username')
   useEffect(() => {
     async function getQuizzesData() {
@@ -35,15 +34,12 @@ export default function Landing() {
               {title}
               {/* {quiz.image} */}
             </Link>
+            <div className='add-question'>
+              <Link to={`/quizzes/${_id}/questions`}>
+                <Button type='button' className='btn btn-sm btn-block'>Add Questions</Button>
+              </Link>
+            </div>
           </div>)}
-        </section>
-        <section>
-          <div className='add-question'>
-            <p>Feeling inspired?</p>
-            <Link to={`/quizzes/${quizId}`}>
-              <Button type='button' className='btn btn-sm btn-block'>Add Questions</Button>
-            </Link>
-          </div>
         </section>
       </main>
     </section>
