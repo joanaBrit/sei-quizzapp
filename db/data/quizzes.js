@@ -71,7 +71,7 @@ export default [
         answer: 'The game was developed in 1990s and was extremely elegant for its time. The game was developed in a small village near Dunblane over the course of two years. Sawyer wrote 99% of the code for RollerCoaster Tycoon in assembly code, (an extremely low-level programming language) for the Microsoft Macro Assembler, with the remaining one percent written in C. ', 
       }
     ],
-    icon: '',
+    icon: '../assets/history.png',
   },
   { title: 'HTTP Requests', 
     questions: [ 
@@ -79,7 +79,7 @@ export default [
         answer: 'An answer about HTTP 1', 
       }
     ],
-    icon: '../assets/history.png',
+    icon: '../assets/httprequest.png',
   },
   { title: 'Express', 
     questions: [ 
