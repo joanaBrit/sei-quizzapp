@@ -7,6 +7,7 @@ export default function UpdatingQuestion ( { token } ) {
 
 
   const { quizId, questionId } = useParams()
+  console.log('TOKEN', token)
 
 
   const [quiz, setQuiz] = useState()
@@ -40,6 +41,7 @@ export default function UpdatingQuestion ( { token } ) {
     
     e.preventDefault()
     console.log(token)
+    console.log(quizId, questionId)
     await axios.put(`/api/quizzes/${quizId}/questions/${questionId}`, {
       question: newQuestion,
       answer: newAnswer,
