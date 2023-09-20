@@ -21,7 +21,7 @@ export default function TakingQuiz( { token } ){
       const userCreated = []
       const { data } = await axios.get(`/api/quizzes/${id}`)
       setQuiz(data)
-      data && data.questions.map(( { addedBy }, i ) => {
+      data && data.questions.map(( { addedBy } ) => {
         console.log(addedBy)
         if (!token) {
           console.log('no token')
@@ -31,19 +31,15 @@ export default function TakingQuiz( { token } ){
         const base64 = base64Url.replace('-', '+').replace('_', '/')
         console.log(JSON.parse(window.atob(base64)))
         if (addedBy === JSON.parse(window.atob(base64)).sub) {
-          console.log('creatd')
           userCreated.push(true)
         } else {
           userCreated.push(false)
-          console.log('not creatd')
         }
       })
-      console.log(userCreated)
       setCreator([...userCreated])
     }
     getQuizSingle()
   }, [])
-  console.log(creator)
 
 
   function handleClick(e) {
