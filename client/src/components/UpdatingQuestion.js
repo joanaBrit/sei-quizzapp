@@ -3,16 +3,15 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { getToken } from '../utils/auth'
+export default function UpdatingQuestion ( { token }) {
 
-export default function UpdatingQuestion () {
 
   const { quizId, questionId } = useParams()
 
 
   const [quiz, setQuiz] = useState()
-  const [question, setQuestion] = useState('')
-  const [answer, setAnswer] = useState('')
+  const [newQuestion, setNewQuestion] = useState('')
+  const [newAnswer, setNewAnswer] = useState('')
 
   useEffect(() => {
     async function getQuizSingle(){
@@ -20,8 +19,8 @@ export default function UpdatingQuestion () {
       setQuiz(data)
       data.questions.forEach(question =>{
         if ( question._id === questionId ) {
-          setQuestion(question.question)
-          setAnswer(question.answer)
+          setNewQuestion(question.question)
+          setNewAnswer(question.answer)
         }
       })
     }
@@ -29,27 +28,39 @@ export default function UpdatingQuestion () {
   }, [])
 
   function handleChangeQuestion (e) {
-    setQuestion(e.target.value)
+    setNewQuestion(e.target.value)
   }
   function handleChangeAnswer (e) {
-    setAnswer(e.target.value)
+    setNewAnswer(e.target.value)
   }
 
 
-  function uploadQuestion (e) {
+  async function uploadQuestion (e) {
+    console.log(newQuestion, newAnswer)
+    
     e.preventDefault()
-    axios.put(`/api/quizzes/${quizId}/${questionId}`,{
+    console.log(token)
+    await axios.put(`/api/quizzes/${quizId}/questions/${questionId}`, {
+      question: newQuestion,
+      answer: newAnswer,
+    }, {
       headers: {
-        Authorization: `Bearer ${getToken()}`,
+        'Authorization': `Bearer ${token}`,
       },
     })
+      .then(function (response) {
+        console.log(response)
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
   }
 
   return (
     <form onSubmit={ (e) => uploadQuestion(e)}>
-      <input type='text' value={question} onChange={(e) => handleChangeQuestion(e)} />
-      <input type='text' value={answer} onChange={(e) => handleChangeAnswer(e)}/>
-      <button type='submit'>Submit</button>
+      <input type='text' value={newQuestion} onChange={(e) => handleChangeQuestion(e)} />
+      <input type='text' value={newAnswer} onChange={(e) => handleChangeAnswer(e)}/>
+      <button type='submit' className='btn btn-sm col-10 d-block m-auto mt-1 '>Submit</button>
     </form>
   )
 }

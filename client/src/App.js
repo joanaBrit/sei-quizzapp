@@ -30,8 +30,12 @@ export default function App() {
         <Routes>
           <Route path='/' element={<Login 
             setToken={setToken} />}/>
-          <Route path='/quizzes/:id' element={<TakingQuiz />} />
-          <Route path='/quizzes/:quizId/:questionId' element={<UpdatingQuestion />} />
+          <Route path='/quizzes/:id' element={<TakingQuiz 
+            token = { token }
+          />} />
+          <Route path='/quizzes/:quizId/questions/:questionId' element={<UpdatingQuestion 
+            token = { token }
+          />} />
           <Route path='/register' element={<Register />} />
           <Route path='/landing' element={<Landing />} />
           <Route path='/quizzes/:quizId/questions' element={<AddQuestionForm 

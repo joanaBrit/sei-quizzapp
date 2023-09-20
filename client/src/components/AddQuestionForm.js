@@ -24,7 +24,6 @@ export default function AddQuestionForm( { username, token }) {
     console.log('handle submit')
     console.log(event.target[0].value, event.target[1].value)
 
-
     await axios.post(`/api/quizzes/${quizId}/questions`,     {
       question: event.target[0].value,
       answer: event.target[1].value,
