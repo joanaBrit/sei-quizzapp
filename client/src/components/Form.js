@@ -56,14 +56,32 @@ export default function RegisterForm({ title, request, fields, redirect, onLoad 
       if (redirect) {
         navigate(redirect)
       }
-      //  ! Need to fix this ERRORS
+
     } catch (error) {
       console.log(error)
-      const errorMessage = error.response.data.message || 'An error occurred.'
 
-      console.error(errorMessage)
-      setErrors(`${errorMessage} => Are you sure your password has a minimun of 4 letters and it's the same in both password fields? `)
-      console.log(JSON.stringify(error.response.data.message))
+      if (error.response && error.response.data && error.response.data.errors) {
+
+        const errorMessage = error.response.data.errors
+
+        if (error.response.status === 404 || errorMessage.password.value === '' ) {
+          setErrors('User Not Found.')
+          // console.log(errorMessage.password.kind)
+
+        } else if (errorMessage.passwordConfirmation) {
+          setErrors('The passwords do not match')
+          // console.log('here', errorMessage.request.response)
+
+        } else if (errorMessage && errorMessage.password.kind === 'minlength') {
+          setErrors('The password is shorter than the minimum length (4)')
+          // console.log(errorMessage.password.kind)
+
+        } else {
+          // console.log('here', errorMessage)
+          console.error(errorMessage)
+          setErrors(`Oops! Something went wrong! - ${errorMessage.value}`)
+        }
+      }
     }
   }
 
