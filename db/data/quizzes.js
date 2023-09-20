@@ -8,7 +8,7 @@ export default [
         answer: 'Routes Answer', 
       }
     ],
-    icon: '../assets/logo-react.png',
+    icon: '../assets/react.png',
   }, 
   { title: 'Node', 
     questions: [ 
@@ -19,7 +19,7 @@ export default [
         answer: 'An answer about node 2', 
       }
     ],
-    icon: '../assets/logo-node.png',
+    icon: '../assets/nodejs.png',
   },
   { title: 'Git', 
     questions: [ 
@@ -27,7 +27,7 @@ export default [
         answer: 'An answer about Git 1', 
       }
     ],
-    icon: '',
+    icon: '../assets/git.png',
   },
   { title: 'CSS', 
     questions: [ 
@@ -35,7 +35,7 @@ export default [
         answer: 'An answer about CSS 1', 
       }
     ],
-    icon: '',
+    icon: '../assets/css.png',
   },
   { title: 'JavaScript', 
     questions: [ 
@@ -49,7 +49,7 @@ export default [
         answer: 'Deconstructing Answer', 
       }
     ],
-    icon: '',
+    icon: '../assets/js.png',
   },
   { title: 'Development practices', 
     questions: [ 
@@ -60,7 +60,7 @@ export default [
         answer: 'Semantic HTML gives meaning and structure to web content. It helps search engines and assistive technologies understand content. Semantic HTML is not a direct ranking factor but improves SEO and accessibility. Using semantic HTML creates an optimal experience for all users.', 
       }
     ],
-    icon: '',
+    icon: '../assets/practice.png',
   },
   { title: 'History', 
     questions: [ 
@@ -79,7 +79,7 @@ export default [
         answer: 'An answer about HTTP 1', 
       }
     ],
-    icon: '',
+    icon: '../assets/history.png',
   },
   { title: 'Express', 
     questions: [ 
@@ -87,7 +87,7 @@ export default [
         answer: 'An answer about Express 1', 
       }
     ],
-    icon: '',
+    icon: '../assets/express.png',
   },
   { title: 'MongoDB', 
     questions: [ 
@@ -98,7 +98,7 @@ export default [
         answer: 'The Mongosh Shell Answer', 
       }
     ],
-    icon: '../assets/logo-node.png',
+    icon: '../assets/mongodb.png',
   },
   { title: 'Python', 
     questions: [ 
@@ -106,7 +106,7 @@ export default [
         answer: 'An answer about Python 1', 
       }
     ],
-    icon: '',
+    icon: '../assets/python.png',
   },
   { title: 'Django', 
     questions: [ 
@@ -114,6 +114,6 @@ export default [
         answer: 'An answer about Django 1', 
       }
     ],
-    icon: '',
+    icon: '../assets/django.png',
   }
 ]
