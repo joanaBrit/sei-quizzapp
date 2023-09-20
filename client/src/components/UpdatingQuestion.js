@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-export default function UpdatingQuestion ( { token }) {
+export default function UpdatingQuestion ( { token } ) {
 
 
   const { quizId, questionId } = useParams()
@@ -57,9 +57,9 @@ export default function UpdatingQuestion ( { token }) {
   }
 
   return (
-    <form onSubmit={ (e) => uploadQuestion(e)}>
-      <input type='text' value={newQuestion} onChange={(e) => handleChangeQuestion(e)} />
-      <input type='text' value={newAnswer} onChange={(e) => handleChangeAnswer(e)}/>
+    <form onSubmit={(e) => uploadQuestion(e)}>
+      <input type='text' name='question' autoComplete='off' value={newQuestion} onChange={(e) => handleChangeQuestion(e)} />
+      <input type='text' name='answer' autoComplete='off' value={newAnswer} onChange={(e) => handleChangeAnswer(e)}/>
       <button type='submit' className='btn btn-sm col-10 d-block m-auto mt-1 '>Submit</button>
     </form>
   )
