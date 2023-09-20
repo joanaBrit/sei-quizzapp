@@ -88,6 +88,7 @@ export const updateSingleQuestion = async (req,res) => {
 
     Object.assign(question, req.body)
     await question.save()
+    await singleQuiz.save()
 
     return res.json(singleQuiz)
   } catch (error) {

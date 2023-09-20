@@ -18,6 +18,7 @@ export default function AddQuestionForm( { username, token }) {
     }
   ]
   const { quizId } = useParams()
+  console.log('TOKEN IN ADD QUESTION', token)
 
   async function submitQuestion(event){
     event.preventDefault()

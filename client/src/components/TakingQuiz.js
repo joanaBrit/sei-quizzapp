@@ -2,6 +2,9 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import Button from 'react-bootstrap/Button'
+
 
 
 export default function TakingQuiz(){
@@ -45,6 +48,11 @@ export default function TakingQuiz(){
         {quiz && quiz.questions.map(({ question, _id },i) => {
           return (
             <div key={i} className="flip-card">
+              <div className='add-question'>
+                <Link to={`/quizzes/${id}/questions/${_id}`}>
+                  <Button type='button' className='btn btn-sm btn-block'>Update Question</Button>
+                </Link>
+              </div>
               <div className="flip-card-inner">
                 <div id={i} onClick={handleClick} className={reveal[i] ? 'flip-card-back' : 'flip-card-front'}>
                   <h5><div id={i} onClick={handleClick}>{question}</div></h5>
