@@ -7,23 +7,47 @@ import Button from 'react-bootstrap/Button'
 
 
 
-export default function TakingQuiz(){
+export default function TakingQuiz( { token } ){
 
   const { id } = useParams()
   const [quiz, setQuiz] = useState('')
   const [correctAnswers, setCorrectAnswers] = useState('')
   const [reveal, setReveal] = useState([false])
+  const [creator, setCreator] = useState([])
   const newReveal = []
   
   useEffect(() => {
     async function getQuizSingle(){
+      const userCreated = []
       const { data } = await axios.get(`/api/quizzes/${id}`)
       setQuiz(data)
+      data && data.questions.map(( { addedBy }, i ) => {
+        console.log(addedBy)
+        if (!token) {
+          console.log('no token')
+          return
+        } 
+        const base64Url = token.split('.')[1]
+        const base64 = base64Url.replace('-', '+').replace('_', '/')
+        console.log(JSON.parse(window.atob(base64)))
+        if (addedBy === JSON.parse(window.atob(base64)).sub) {
+          console.log('creatd')
+          userCreated.push(true)
+        } else {
+          userCreated.push(false)
+          console.log('not creatd')
+        }
+      })
+      console.log(userCreated)
+      setCreator([...userCreated])
     }
     getQuizSingle()
   }, [])
+  console.log(creator)
+
 
   function handleClick(e) {
+    
     e.preventDefault()
     setCorrectAnswers(quiz && quiz.questions.map(({ answer }, i) => {
       if (parseFloat(e.target.id) === i) {
@@ -38,8 +62,8 @@ export default function TakingQuiz(){
       setReveal(newReveal)
       return answer
     }))
+    
   }
-  console.log(reveal)
   
   return (
     <>
@@ -50,7 +74,7 @@ export default function TakingQuiz(){
             <div key={i} className="flip-card">
               <div className='add-question'>
                 <Link to={`/quizzes/${id}/questions/${_id}`}>
-                  <Button type='button' className='btn btn-sm btn-block'>Update Question</Button>
+                  <Button type='button' className={creator && creator[i] ? 'btn btn-sm btn-block' : 'hidden'}>Update Question</Button>
                 </Link>
               </div>
               <div className="flip-card-inner">
@@ -61,7 +85,7 @@ export default function TakingQuiz(){
                   <h5><div id={i} onClick={handleClick}>{correctAnswers[i]}</div></h5>
                 </div>
               </div>
-              <p>{console.log(_id)}</p>
+              <p></p>
             </div>
           )
         })}
