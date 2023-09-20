@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import NavBar from './NavBar'
 
@@ -20,6 +21,7 @@ export default function AddQuestionForm( { username, token }) {
   ]
   const { quizId } = useParams()
   const [ questionId, setQuestionId ] = useState()
+  const navigate = useNavigate()
 
   async function submitQuestion(event){
     event.preventDefault()
@@ -35,12 +37,15 @@ export default function AddQuestionForm( { username, token }) {
       .then(async function (response) {
         await setQuestionId(response.data.questions[ response.data.questions.length - 1 ]._id)
         console.log(response)
+        console.log(questionId)
+
+        //once update question functionality is done, add navigate(/quizzes/${quizId}/${questionId}), or whatever the update route is
+        navigate(`/api/quizzes/${quizId}/questions/${questionId}`)
       })
       .catch(function (error) {
         console.log(error)
       })
     
-    //once update question functionality is done, add navigate(/quizzes/${quizId}/${questionId}), or whatever the update route is
   }
 
   return (
