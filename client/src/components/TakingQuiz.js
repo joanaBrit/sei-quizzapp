@@ -42,15 +42,12 @@ export default function TakingQuiz( { token }){
   }
 
   async function deleteQuestion(questionId) {
-    console.log('QUESTIONID', questionId)
-    console.log('DELETE QUESTION')
     axios.delete(`/api/quizzes/${id}/questions/${questionId}`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       },
     })
       .then(async function (response) {
-        console.log('Response', response)
         navigate('/landing')
       })
       .catch(function (error) {
@@ -58,7 +55,6 @@ export default function TakingQuiz( { token }){
       })
 
   }
-  console.log(reveal)
   
   return (
     <>
@@ -85,7 +81,6 @@ export default function TakingQuiz( { token }){
                   <h5><div id={i} onClick={handleClick}>{correctAnswers[i]}</div></h5>
                 </div>
               </div>
-              <p>{console.log(_id)}</p>
             </div>
           )
         })}

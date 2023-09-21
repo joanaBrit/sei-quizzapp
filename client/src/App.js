@@ -22,7 +22,6 @@ export default function App() {
 
   const [token, setToken] = useState()
 
-  console.log('TOKEN IN APP.JS', token)
 
   return (
     <BrowserRouter>

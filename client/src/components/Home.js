@@ -20,7 +20,6 @@ export default function Login( { token, setToken } ) {
     const response = await axios.post('/api/login', formData)
     const token = response.data.token
     setToken(response.data.token)
-    console.log('TOKEN IN HOME.JS', token)
     return response
 
   }
