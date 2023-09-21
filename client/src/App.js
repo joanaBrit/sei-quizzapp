@@ -43,7 +43,6 @@ export default function App() {
           <Route path='/register' element={<Register />} />
           <Route path='/landing' element={<Landing />} />
           <Route path='/quizzes/:quizId/questions' element={<AddQuestionForm 
-            //token should be received from login 
             token = { token }
           />} />
         </Routes>
