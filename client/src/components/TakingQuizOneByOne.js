@@ -1,4 +1,3 @@
-
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
@@ -7,7 +6,7 @@ import Button from 'react-bootstrap/Button'
 
 
 
-export default function TakingQuiz( { token, setShowAll } ){
+export default function TakingQuizOneByOne( { token, setShowAll } ){
 
   const { id } = useParams()
   const [quiz, setQuiz] = useState('')
@@ -15,15 +14,21 @@ export default function TakingQuiz( { token, setShowAll } ){
   const [reveal, setReveal] = useState([false])
   const [popup, setPopup] = useState(false)
   const [creator, setCreator] = useState([])
+  const [questionNumber, setQuestionNumber] = useState(0)
   const newReveal = []
+  const [totalQuestions, setTotalQuestions] = useState(0)
+  const [deleted, setDeleted] = useState()
   
   useEffect(() => {
     async function getQuizSingle(){
       const userCreated = []
       const { data } = await axios.get(`/api/quizzes/${id}`)
+      let counter = 0
       setQuiz(data)
       data && data.questions.map(( { addedBy } ) => {
+        counter++
         if (!token) {
+          console.log('no token')
           return
         } 
         const base64Url = token.split('.')[1]
@@ -34,11 +39,12 @@ export default function TakingQuiz( { token, setShowAll } ){
           userCreated.push(false)
         }
       })
+      counter--
       setCreator([...userCreated])
+      setTotalQuestions(counter)
     }
     getQuizSingle()
-  }, [])
-
+  }, [deleted])
   function handleClick(e) {
     
     e.preventDefault()
@@ -58,12 +64,24 @@ export default function TakingQuiz( { token, setShowAll } ){
     
   }
 
+  function changePage(e) {
+    let i = questionNumber
+    if (e.target.id === 'next'){
+      i++
+    } else if (e.target.id === 'prev'){
+      i--
+    }
+    setQuestionNumber(i)
+  }
+
   function clickedYes(){
+    let counter = totalQuestions
     //Send request to delete
     // axios.delete
     setPopup(false)
+    setDeleted(counter--)
   }
-
+  
   function clickedNo(){
     setPopup(false)
   }
@@ -73,7 +91,7 @@ export default function TakingQuiz( { token, setShowAll } ){
   }
 
   function changeView() {
-    setShowAll(false)
+    setShowAll(true)
   }
   
   return (
@@ -81,27 +99,24 @@ export default function TakingQuiz( { token, setShowAll } ){
       <section id='container'>
         <Button onClick={changeView}>Switch View</Button>
         <h1>{quiz && quiz.title}</h1>
-        {quiz && quiz.questions.map(({ question, _id },i) => {
-          return (
-            <div key={i} className="flip-card">
-              <div className="flip-card-inner">
-                <div id={i} onClick={handleClick} className={reveal[i] ? 'flip-card-back' : 'flip-card-front'}>
-                  <h5><div id={i} className='wrap-text' onClick={handleClick}>{question}</div></h5>
-                </div>
-                <div id={i} onClick={handleClick} className={!reveal[i] ? 'flip-card-back' : 'flip-card-front'}>
-                  <h5><div id={i} className='wrap-text' onClick={handleClick}>{correctAnswers[i]}</div></h5>
-                </div>
-                <div className='add-question update-question'>
-                  <Button onClick={deleteQuestion} type='button' className={creator && creator[i] ? 'btn btn-sm btn-block' : 'hidden'}>Delete Question</Button>
-                  <Link to={`/quizzes/${id}/questions/${_id}`}>
-                    <Button type='button' className={creator && creator[i] ? 'btn btn-sm btn-block' : 'hidden'}>Update Question</Button>
-                  </Link>
-                </div>
-              </div>
-              <p></p>
+        <Button id='prev' className={questionNumber !== 0 ? '' : 'disabled' } onClick={(e) => changePage(e)}>Previous Question</Button>
+        <Button id='next' className={questionNumber !== totalQuestions ? '' : 'disabled' } onClick={(e) => changePage(e)}>Next Question</Button>
+        <div key={questionNumber} className="flip-card">
+          <div className="flip-card-inner">
+            <div id={questionNumber} onClick={handleClick} className={reveal[questionNumber] ? 'flip-card-back' : 'flip-card-front'}>
+              <h5><div id={questionNumber} className='wrap-text' onClick={handleClick}>{quiz && quiz.questions[questionNumber].question}</div></h5>
             </div>
-          )
-        })}
+            <div id={questionNumber} onClick={handleClick} className={!reveal[questionNumber] ? 'flip-card-back' : 'flip-card-front'}>
+              <h5><div id={questionNumber} className='wrap-text' onClick={handleClick}>{correctAnswers[questionNumber]}</div></h5>
+            </div>
+            <div className='add-question update-question'>
+              <Button onClick={deleteQuestion} type='button' className={creator && creator[questionNumber] ? 'btn btn-sm btn-block' : 'hidden'}>Delete Question</Button>
+              <Link to={`/quizzes/${id}/questions/${quiz && quiz.questions[questionNumber]._id}`}>
+                <Button type='button' className={creator && creator[questionNumber] ? 'btn btn-sm btn-block' : 'hidden'}>Update Question</Button>
+              </Link>
+            </div>
+          </div>
+        </div>
       </section>
       <div className={popup ? 'popup' : 'hidden'}>
         <div className={popup ? 'popup_inner' : 'hidden'}>
@@ -115,5 +130,3 @@ export default function TakingQuiz( { token, setShowAll } ){
     </>
   )
 }
-
-
