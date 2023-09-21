@@ -38,11 +38,12 @@ export default function Landing() {
 
 
 
-
+  console.log(username)
   return (
     <section>
       <nav>
         <span className='username'>{username}</span>
+
       </nav>
 
       <main>

@@ -22,31 +22,46 @@ h3 {
   font-family: $font-f-base;
 }
 
-.username {
-  font-size: 15px;
-  color: $light;
-}
+nav {
+    
+    display: flex;
+    width: 100%;
+    height: 30px;
 
-.carousel {
-  display: flex;
-}
+    .username {
+      font-size: 15px;
+      color: $light;
+    }
+  }
 
-.carousel .carousel-indicators button {
-  display: none;
-}
 
-.carousel .carousel-control-next-icon.change {
-  background-image: url('../../images/arrow.png');
-}
+  .carousel .carousel-caption {
+    position: inherit;
+  }
 
-.carousel .carousel-control-prev-icon.change {
-  background-image: url('../../images/prev_arrow.png');
-}
+  .carousel .carousel-indicators button {
+    display: none;
+  }
 
-.change {
-  width: 50%;
-}
+  .carousel .carousel-control-next-icon.change {
+    background-image: url('../../images/arrow.png');
+  }
 
-.carousel-caption {
-  position: inherit;
-}
+  .carousel .carousel-control-prev-icon.change {
+    background-image: url('../../images/prev_arrow.png');
+  }
+
+  .change {
+    width: 50%;
+  }
+
+
+
+  .wrap-carousel {
+    min-width: 600px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: flex-end;
+    align-items: stretch;
+  }
