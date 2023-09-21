@@ -6,13 +6,13 @@ import axios from 'axios'
 
 
 
-export default function Landing() {
+export default function Landing( { setId } ) {
   const [quizzes, setQuizzes] = useState([])
   const username = localStorage.getItem('username')
   useEffect(() => {
+    setId(false)
     async function getQuizzesData() {
       try {
-
         const { data } = await axios('/api/quizzes')
         setQuizzes(data)
       } catch (error) {
@@ -27,9 +27,6 @@ export default function Landing() {
   console.log(username)
   return (
     <section>
-      <nav>
-        <span className='username'>{username}</span>
-      </nav>
 
       <main>
         <section className='wrap-carousel'>

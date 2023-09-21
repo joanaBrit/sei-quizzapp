@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button'
 
 
 
-export default function TakingQuiz( { token, setShowAll } ){
+export default function TakingQuiz( { token, setShowAll, setId, reload, setReload } ){
 
   const { id } = useParams()
   const [quiz, setQuiz] = useState('')
@@ -18,10 +18,12 @@ export default function TakingQuiz( { token, setShowAll } ){
   const newReveal = []
   
   useEffect(() => {
+    setReload(false)
     async function getQuizSingle(){
       const userCreated = []
       const { data } = await axios.get(`/api/quizzes/${id}`)
       setQuiz(data)
+      setId(true)
       data && data.questions.map(( { addedBy } ) => {
         if (!token) {
           return
@@ -37,7 +39,7 @@ export default function TakingQuiz( { token, setShowAll } ){
       setCreator([...userCreated])
     }
     getQuizSingle()
-  }, [])
+  }, [reload])
 
   function handleClick(e) {
     

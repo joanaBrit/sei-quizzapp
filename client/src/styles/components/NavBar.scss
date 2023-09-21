@@ -1,3 +1,14 @@
 nav{
-  display: flex
+  display: flex;
+  max-width: 100%;
+  justify-content: space-evenly;
+}
+
+.dropdown-list {
+  display: flex;
+  flex-direction: column;
+  .quiz-list {
+    display: flex;
+    flex-direction: column;
+  }
 }

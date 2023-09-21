@@ -45,6 +45,12 @@ export const loginUser = async (req, res) => {
 // ! do we need to populate?
 // * Create a profile
 export const getUserProfile = async (req, res) => {
-  const user = await User.findById(req.user._id)
-  return res.json(user)
+  try{
+    console.log('HIT PROFILE ROUTE')
+    const user = await User.findOne(req._id)
+    console.log()
+    return res.json(user)
+  } catch (error) {
+    sendErrors(error, res)
+  }
 }

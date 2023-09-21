@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button'
 
 
 
-export default function TakingQuizOneByOne( { token, setShowAll } ){
+export default function TakingQuizOneByOne( { token, setShowAll, setId, reload, setReload } ){
 
   const { id } = useParams()
   const [quiz, setQuiz] = useState('')
@@ -21,7 +21,9 @@ export default function TakingQuizOneByOne( { token, setShowAll } ){
   
   useEffect(() => {
     async function getQuizSingle(){
+      setReload(false)
       const userCreated = []
+      setId(true)
       const { data } = await axios.get(`/api/quizzes/${id}`)
       let counter = 0
       setQuiz(data)
@@ -44,7 +46,7 @@ export default function TakingQuizOneByOne( { token, setShowAll } ){
       setTotalQuestions(counter)
     }
     getQuizSingle()
-  }, [deleted])
+  }, [deleted, reload])
   function handleClick(e) {
     
     e.preventDefault()
@@ -63,7 +65,7 @@ export default function TakingQuizOneByOne( { token, setShowAll } ){
     }))
     
   }
-
+  
   function changePage(e) {
     let i = questionNumber
     if (e.target.id === 'next'){
@@ -73,7 +75,7 @@ export default function TakingQuizOneByOne( { token, setShowAll } ){
     }
     setQuestionNumber(i)
   }
-
+  
   function clickedYes(){
     let counter = totalQuestions
     //Send request to delete
@@ -89,13 +91,14 @@ export default function TakingQuizOneByOne( { token, setShowAll } ){
   function deleteQuestion() {
     setPopup(true)
   }
-
+  
   function changeView() {
     setShowAll(true)
   }
   
   return (
     <>
+    
       <section id='container'>
         <Button onClick={changeView}>Switch View</Button>
         <h1>{quiz && quiz.title}</h1>
