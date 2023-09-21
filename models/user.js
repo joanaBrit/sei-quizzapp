@@ -11,18 +11,6 @@ const userSchema = new mongoose.Schema({
 })
 
 
-// ! I can't populate because we don't have the field to add questions yet
-// ! Virtual Field that will be populate based on referenced relationships
-// The ref - collection we trying to populate
-// LocalField - user doc should match a field on the quizz doc (addedBy)
-// userSchema
-// .virtual('quizzesAdded', { //not sure which name will be
-//   ref: 'quiz',
-//   localField: '_id',
-//   foreignField: 'addedBy'
-// })
-
-
 // * Transform the data when sent back to the client
 userSchema
   .set('toJSON', {

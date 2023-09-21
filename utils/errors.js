@@ -43,7 +43,7 @@ export const chechId = (...ids) => {
   // isValidObjectId return a boolean
   // Here we send an error response for invalid id's
   ids.forEach(id => {
-    if(!mongoose.isValidObjectId(id)){
+    if (!mongoose.isValidObjectId(id)) {
       throw new UnprocessableEntity('Invalid ObjectId', {
         Objectid: {
           name: 'ObjectId',
@@ -63,15 +63,15 @@ export const sendErrors = (error, res) => {
   status = status || 422
   details = errors || details || message || name
 
-console.log('-------------------------')
-console.log('-------------------------')
-console.log('🧨🧨 Errors 🧨🧨')
-console.log('-------------------------')
-console.log('⛔ Name:', status, name)
-console.log('⛔ Message:', message)
-console.log('⛔ Details:', details)
-console.log('-------------------------')
-console.log('-------------------------')
+  console.log('-------------------------')
+  console.log('-------------------------')
+  console.log('🧨🧨 Errors 🧨🧨')
+  console.log('-------------------------')
+  console.log('⛔ Name:', status, name)
+  console.log('⛔ Message:', message)
+  console.log('⛔ Details:', details)
+  console.log('-------------------------')
+  console.log('-------------------------')
 
-return res.status(status).json({ errors: details })
+  return res.status(status).json({ errors: details })
 }

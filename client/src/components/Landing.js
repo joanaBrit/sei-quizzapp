@@ -5,7 +5,6 @@ import Carousel from 'react-bootstrap/Carousel'
 import axios from 'axios'
 
 
-
 export default function Landing() {
   const [quizzes, setQuizzes] = useState([])
   const username = localStorage.getItem('username')
@@ -23,36 +22,29 @@ export default function Landing() {
   }, [])
 
 
-
-  console.log(username)
   return (
     <section>
       <nav>
         <span className='username'>{username}</span>
       </nav>
-
       <main>
         <section className='wrap-carousel'>
           <h1 className="title text-center text-uppercase mb-5">Sei Quiz App</h1>
           <Carousel
-            // data-bs-theme="dark"
-            // {/*  interval={1000}*/}
+            interval={1000}
             nextIcon={<span aria-hidden="true" className="carousel-control-next-icon change" />}
             prevIcon={<span aria-hidden="true" className="carousel-control-prev-icon change" />}
           >
             {quizzes.map(({ title, icon, _id }, i) =>
-
               <Carousel.Item key={i}>
-
                 <div className='display-category' >
                   <Carousel.Caption>
                     <h3>{title}</h3>
                   </Carousel.Caption>
-                  <Link to={`/quizzes/${_id}`}> {/* Just an idea on how this should look like, we can change the link or anything to other things, but i had to use {title, _id } to make things easier */}
-                    <img alt={title} src={icon || 'Image not Found'} />
+                  <Link to={`/quizzes/${_id}`}>
+                    <img alt={title} src={icon || 'Image Not Found'} />
                   </Link>
                 </div>
-
                 <div className='add-question'>
                   <Link to={`/quizzes/${_id}/questions`} className='link-btn'>
                     <div >
@@ -66,8 +58,7 @@ export default function Landing() {
             )}
           </Carousel>
         </section>
-      </main >
-
-    </section >
+      </main>
+    </section>
   )
 }
