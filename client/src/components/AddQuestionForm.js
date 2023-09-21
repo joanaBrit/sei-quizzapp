@@ -1,5 +1,7 @@
 import axios from 'axios'
+import { useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import NavBar from './NavBar'
 
@@ -18,12 +20,13 @@ export default function AddQuestionForm( { username, token }) {
     }
   ]
   const { quizId } = useParams()
+  const [ questionId, setQuestionId ] = useState()
+  const navigate = useNavigate()
 
   async function submitQuestion(event){
     event.preventDefault()
     console.log('handle submit')
     console.log(event.target[0].value, event.target[1].value)
-
 
     await axios.post(`/api/quizzes/${quizId}/questions`,     {
       question: event.target[0].value,
@@ -33,15 +36,17 @@ export default function AddQuestionForm( { username, token }) {
         'Authorization': `Bearer ${token}`,
       },
     })
-      .then(function (response) {
-        console.log(response)
+      .then(async function (response) {
+        console.log('Response', response)
+        await setQuestionId(response.data.questions[ response.data.questions.length - 1 ]._id)
+        console.log('questionid', questionId)
       })
       .catch(function (error) {
         console.log(error)
       })
-  }
-  function handleChange(){
-    console.log('change')
+
+    navigate(`/quizzes/${quizId}`)    
+    
   }
 
   return (
@@ -64,9 +69,9 @@ export default function AddQuestionForm( { username, token }) {
             <Col as="form" xs={{ span: 8, offset: 2 }} md={{ span: 6, offset: 3 }} onSubmit={submitQuestion} autoComplete='off'>
 
               <label hidden htmlFor='question'>question</label>
-              <input type='text' name='question' placeholder='Your question' onChange={handleChange} id='questionId'
+              <input type='text' name='question' placeholder='Your question' id={questionId}
               />
-              <input type='text' name='question' placeholder='Correct answer' onChange={handleChange} id='questionId'
+              <input type='text' name='answer' placeholder='Correct answer'id={questionId}
               />              
               {/* {errors && <p className='text-warning bold text-center mt-5'>{errors}</p>} */}
               <button type="submit">Submit</button>

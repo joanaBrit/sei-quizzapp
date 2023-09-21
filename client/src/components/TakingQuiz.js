@@ -2,6 +2,9 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import Button from 'react-bootstrap/Button'
+
 
 
 export default function TakingQuiz(){
@@ -32,7 +35,6 @@ export default function TakingQuiz(){
       } else {
         newReveal.push(reveal[i])
       }
-      console.log()
       setReveal(newReveal)
       return answer
     }))
@@ -41,14 +43,26 @@ export default function TakingQuiz(){
   
   return (
     <>
-      <section id='Quiz-container'>
+      <section id='container'>
         <h1>{quiz && quiz.title}</h1>
-        {quiz && quiz.questions.map(({ question },i) => {
+        {quiz && quiz.questions.map(({ question, _id },i) => {
           return (
-            <section key={i} className='question-container'>
-              <h5 id={i} onClick={handleClick}>{question}</h5>
-              <p>{(reveal && reveal[i]) ? correctAnswers[i] : ''}</p>
-            </section>
+            <div key={i} className="flip-card">
+              <div className='add-question'>
+                <Link to={`/quizzes/${id}/questions/${_id}`}>
+                  <Button type='button' className='btn btn-sm btn-block'>Update Question</Button>
+                </Link>
+              </div>
+              <div className="flip-card-inner">
+                <div id={i} onClick={handleClick} className={reveal[i] ? 'flip-card-back' : 'flip-card-front'}>
+                  <h5><div id={i} onClick={handleClick}>{question}</div></h5>
+                </div>
+                <div id={i} onClick={handleClick} className={!reveal[i] ? 'flip-card-back' : 'flip-card-front'}>
+                  <h5><div id={i} onClick={handleClick}>{correctAnswers[i]}</div></h5>
+                </div>
+              </div>
+              <p>{console.log(_id)}</p>
+            </div>
           )
         })}
       </section>
