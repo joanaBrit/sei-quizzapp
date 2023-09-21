@@ -1,6 +1,6 @@
 import express from 'express'
 import { secureRoute } from './secureRoutes.js'
-import { getAllQuizzes, getSingleQuestion, getSingleQuiz, updateSingleQuestion, addSingleQuestion } from '../controllers/quiz.js'
+import { getAllQuizzes, getSingleQuestion, getSingleQuiz, updateSingleQuestion, addSingleQuestion, deleteSingleQuestion } from '../controllers/quiz.js'
 
 import { registerUser, loginUser, getUserProfile } from '../controllers/users.js'
 
@@ -20,6 +20,7 @@ router.route('/quizzes/:quizId/questions')
 router.route('/quizzes/:quizId/questions/:questionId')
   .get(getSingleQuestion)
   .put(secureRoute, updateSingleQuestion)
+  .delete(secureRoute, deleteSingleQuestion)
 
 // ! Users
 // Register

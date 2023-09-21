@@ -1,19 +1,20 @@
 
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 
 
 
-export default function TakingQuiz(){
+export default function TakingQuiz( { token }){
 
   const { id } = useParams()
   const [quiz, setQuiz] = useState('')
   const [correctAnswers, setCorrectAnswers] = useState('')
   const [reveal, setReveal] = useState([false])
   const newReveal = []
+  const navigate = useNavigate()
   
   useEffect(() => {
     async function getQuizSingle(){
@@ -21,7 +22,7 @@ export default function TakingQuiz(){
       setQuiz(data)
     }
     getQuizSingle()
-  }, [])
+  }, [id])
 
   function handleClick(e) {
     e.preventDefault()
@@ -39,6 +40,24 @@ export default function TakingQuiz(){
       return answer
     }))
   }
+
+  async function deleteQuestion(questionId) {
+    console.log('QUESTIONID', questionId)
+    console.log('DELETE QUESTION')
+    axios.delete(`/api/quizzes/${id}/questions/${questionId}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    })
+      .then(async function (response) {
+        console.log('Response', response)
+        navigate('/landing')
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+
+  }
   console.log(reveal)
   
   return (
@@ -52,6 +71,11 @@ export default function TakingQuiz(){
                 <Link to={`/quizzes/${id}/questions/${_id}`}>
                   <Button type='button' className='btn btn-sm btn-block'>Update Question</Button>
                 </Link>
+              </div>
+              <div className='add-question'>
+
+                <Button type='button' className='btn btn-sm btn-block'  onClick={deleteQuestion.bind(this, _id)}>Delete Question</Button>
+
               </div>
               <div className="flip-card-inner">
                 <div id={i} onClick={handleClick} className={reveal[i] ? 'flip-card-back' : 'flip-card-front'}>
