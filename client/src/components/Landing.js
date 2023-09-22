@@ -42,7 +42,7 @@ export default function Landing() {
                     <h3>{title}</h3>
                   </Carousel.Caption>
                   <Link to={`/quizzes/${_id}`}>
-                    <img alt={title} src={icon || 'Image Not Found'} />
+                    <img alt={title} src={icon} />
                   </Link>
                 </div>
                 <div className='add-question'>

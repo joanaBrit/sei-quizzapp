@@ -40,9 +40,3 @@ export const loginUser = async (req, res) => {
   }
 }
 
-
-// * Create a profile
-export const getUserProfile = async (req, res) => {
-  const user = await User.findById(req.user._id)
-  return res.json(user)
-}
