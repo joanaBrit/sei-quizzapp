@@ -98,6 +98,38 @@ export const updateSingleQuestion = async (req,res) => {
 
 }
 
+// * DELETE Route 
+export const deleteSingleQuestion = async (req,res) => {
+  const { quizId, questionId } = req.params
+  
+  if (!mongoose.isValidObjectId(quizId)){
+    return res.status(404).json('Not valid Quiz Id')
+  }
+  if (!mongoose.isValidObjectId(questionId)){
+    return res.status(404).json('Not Valid Question Id')
+  }
+
+  try {
+
+    const singleQuiz = await Quiz.findById(quizId)
+
+    const question = singleQuiz.questions.id(questionId)
+
+    if (!question) return res.status(404).json('Question not found')
+
+    question.deleteOne()
+
+    console.log(singleQuiz)
+    await singleQuiz.save()
+
+    return res.json(singleQuiz)
+  } catch (error) {
+    console.log(error)
+    return res.status(422).json(error)
+  }
+
+}
+
 // * POST Route 
 export const addSingleQuestion = async (req,res) => {
   console.log('HIT ADD SINGLE QUESTION ROUTE')

@@ -33,7 +33,7 @@ export default function AddQuestionForm( { username, token }) {
       },
     })
       .then(async function (response) {
-        setQuestionId(response.data.questions[ response.data.questions.length - 1 ]._id)
+        await setQuestionId(response.data.questions[ response.data.questions.length - 1 ]._id)
       })
       .catch(function (error) {
         console.log(error)

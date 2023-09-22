@@ -20,8 +20,6 @@ export default function Login( { token, setToken, setUsername } ) {
     const token = response.data.token
     const username = response.data.username
     setToken(response.data.token)
-    setUsername(response.data.username)
-    console.log('TOKEN IN HOME.JS', token)
     return response
 
   }

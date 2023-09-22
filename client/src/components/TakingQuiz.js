@@ -1,7 +1,7 @@
 
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 
@@ -16,6 +16,7 @@ export default function TakingQuiz( { token, setShowAll, setId, reload, setReloa
   const [popup, setPopup] = useState(false)
   const [creator, setCreator] = useState([])
   const newReveal = []
+  const navigate = useNavigate()
   
   useEffect(() => {
     setReload(false)
@@ -70,12 +71,27 @@ export default function TakingQuiz( { token, setShowAll, setId, reload, setReloa
     setPopup(false)
   }
   
-  function deleteQuestion() {
+  function deleteQuestionConfirm() {
     setPopup(true)
   }
 
   function changeView() {
     setShowAll(false)
+  }
+
+  async function deleteQuestion(questionId) {
+    axios.delete(`/api/quizzes/${id}/questions/${questionId}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    })
+      .then(async function (response) {
+        navigate('/landing')
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+
   }
   
   return (
@@ -86,6 +102,16 @@ export default function TakingQuiz( { token, setShowAll, setId, reload, setReloa
         {quiz && quiz.questions.map(({ question, _id },i) => {
           return (
             <div key={i} className="flip-card">
+              <div className='add-question'>
+                <Link to={`/quizzes/${id}/questions/${_id}`}>
+                  <Button type='button' className='btn btn-sm btn-block'>Update Question</Button>
+                </Link>
+              </div>
+              <div className='add-question'>
+
+                <Button type='button' className='btn btn-sm btn-block'  onClick={deleteQuestion.bind(this, _id)}>Delete Question</Button>
+
+              </div>
               <div className="flip-card-inner">
                 <div id={i} onClick={handleClick} className={reveal[i] ? 'flip-card-back' : 'flip-card-front'}>
                   <h5><div id={i} className='wrap-text' onClick={handleClick}>{question}</div></h5>
@@ -94,13 +120,12 @@ export default function TakingQuiz( { token, setShowAll, setId, reload, setReloa
                   <h5><div id={i} className='wrap-text' onClick={handleClick}>{correctAnswers[i]}</div></h5>
                 </div>
                 <div className='add-question update-question'>
-                  <Button onClick={deleteQuestion} type='button' variant='outline-primary' className={creator && creator[i] ? 'btn btn-sm btn-block' : 'hidden'}>Delete Question</Button>
+                  <Button onClick={deleteQuestionConfirm} type='button' variant='outline-primary' className={creator && creator[i] ? 'btn btn-sm btn-block' : 'hidden'}>Delete Question</Button>
                   <Link to={`/quizzes/${id}/questions/${_id}`}>
                     <Button type='button' variant='outline-primary' className={creator && creator[i] ? 'btn btn-sm btn-block' : 'hidden'}>Update Question</Button>
                   </Link>
                 </div>
               </div>
-              <p></p>
             </div>
           )
         })}
