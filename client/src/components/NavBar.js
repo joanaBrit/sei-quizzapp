@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import NavDropdown from 'react-bootstrap/NavDropdown'
+import { removeToken } from '../utils/auth'
 
 export default function NavBar( { token, quizname, username, id, setReload }){
 
   const [userId, setUserId] = useState()
   const [quizzes, setQuizzes] = useState()
+  const navigate = useNavigate()
 
   useEffect(() => {
     async function getQuizzes () {
@@ -29,32 +31,32 @@ export default function NavBar( { token, quizname, username, id, setReload }){
     getUser()
   })
 
+  function logOut(e){
+    e.preventDefault()
+    console.log('Logout')
+    // removeToken
+    removeToken()
+    // Navigate to login
+    navigate('/')
+  }
+
   return (
     <nav>
-      <NavDropdown title="Quiz List" className={id && id ? 'dropdown-list' : 'hidden'}>
+      <NavDropdown title="Quiz List" className={id && id ? 'dropdown-list no-decoration' : 'hidden'}>
         {quizzes && quizzes.map((quiz, i) => {
-          return (<Link className='quiz-list' onClick={e => setReload(true)} key={i} to= {`/quizzes/${quizzes[i]._id}`}>{quiz.title}</Link>)
+          return (<Link className='quiz-list no-decoration' onClick={e => setReload(true)} key={i} to= {`/quizzes/${quizzes[i]._id}`}>{quiz.title}</Link>)
         })}
       </NavDropdown>
-      <Link className={id && id ? '' : 'hidden'} to= '/landing'> View all Quizzes </Link>
+      <Link className={id && id ? 'no-decoration' : 'hidden'} to= '/landing'> View all Quizzes </Link>
       <div className='username'>
-        <span> Hello {username}</span>
+        { username ?
+          <NavDropdown className='dropdown-list' title={`Welcome ${username}`}>
+            <Link className='no-decoration' onClick={logOut}> Log out </Link>
+          </NavDropdown>
+          :
+          <p>Welcome</p>
+        }
       </div>
     </nav>
   )
 }
-
-// Logout Function
-// export default function Nav({ user }){
-
-//   const [show, setShow] = useState(false)
-
-//   // ! location variables
-//   const navigate = useNavigate()
-
-//   function logOut(){
-//     // removeToken
-//     removeToken()
-//     // Navigate to login
-//     navigate('/login')
-//   }
