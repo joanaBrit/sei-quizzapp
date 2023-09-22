@@ -20,6 +20,7 @@ export default function Login( { token, setToken, setUsername } ) {
     const token = response.data.token
     const username = response.data.username
     setToken(response.data.token)
+    setUsername(response.data.username)
     return response
 
   }

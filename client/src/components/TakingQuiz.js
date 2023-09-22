@@ -130,7 +130,7 @@ export default function TakingQuiz( { token, setShowAll, setId, reload, setReloa
           )
         })}
       </section>
-      <div className={popup ? 'popup' : 'hidden'}>
+      {/* <div className={popup ? 'popup' : 'hidden'}>
         <div className={popup ? 'popup_inner' : 'hidden'}>
           <h1 className={popup ? 'h1' : 'hidden'}>Are you sure you want to delete the question?</h1>
           <div className='btn-container'>
@@ -138,7 +138,7 @@ export default function TakingQuiz( { token, setShowAll, setId, reload, setReloa
             <Button className={popup ? 'btn btn-sm btn-block' : 'hidden'} onClick={clickedNo}>No</Button>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   )
 }
