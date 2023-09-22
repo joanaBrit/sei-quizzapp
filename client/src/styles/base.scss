@@ -9,6 +9,8 @@ body {
   min-height: 100vh;
   background-image: url('../images/futuristic.jpg');
   background-size: cover;
+  background-repeat: no-repeat; //Added these 2 new lines otherwise in taking quiz the questionmark in the image would be out of the picture if you had too many questions
+  background-attachment: fixed;
 }
 
 main {

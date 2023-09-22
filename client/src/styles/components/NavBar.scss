@@ -1,3 +1,32 @@
+.dropdown-menu .dropdown-list{
+  background-color: transparent;
+}
+
+.no-decoration{
+  text-decoration: none;
+  color: white;
+}
+
 nav{
-  display: flex
+  display: flex;
+  max-width: 100%;
+  justify-content: space-evenly;
+  font-family: $font-f-title;
+}
+
+
+.dropdown-list {
+  display: flex;
+  flex-direction: column;
+  .quiz-list {
+    display: flex;
+    flex-direction: column;
+    font-family: $font-f-base;
+    color: white;
+  }
+}
+
+.dropdown-menu.show{
+  box-shadow: 0 0 3px white;
+  background: transparent;
 }

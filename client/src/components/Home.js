@@ -3,8 +3,7 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 
 
-export default function Login({ token, setToken }) {
-
+export default function Login( { token, setToken, setUsername } ) {
   const fields = [
     {
       type: 'email',
@@ -19,7 +18,9 @@ export default function Login({ token, setToken }) {
   async function login(formData) {
     const response = await axios.post('/api/login', formData)
     const token = response.data.token
+    const username = response.data.username
     setToken(response.data.token)
+    setUsername(response.data.username)
     console.log('TOKEN IN HOME.JS', token)
     return response
 

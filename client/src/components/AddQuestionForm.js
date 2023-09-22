@@ -3,8 +3,6 @@ import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 
-import NavBar from './NavBar'
-
 
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
@@ -51,14 +49,6 @@ export default function AddQuestionForm( { username, token }) {
 
   return (
     <section>
-      <header>
-        <NavBar
-          quizname={'quizname'}
-        />
-        <div className='username'>
-          <span>{'username'}</span>
-        </div>
-      </header>
       <main>
         <section>
           <h1 className="title text-center text-uppercase mb-5">Add a Question to {/* quiz.id */ } </h1>
