@@ -14,12 +14,10 @@ export const registerUser = async (req, res) => {
   }
 }
 
-
 // * Login
 export const loginUser = async (req, res) => {
 
   const { email, password } = req.body
-
 
   try {
     const userLogin = await User.findOne({ email })
@@ -42,9 +40,3 @@ export const loginUser = async (req, res) => {
   }
 }
 
-// ! do we need to populate?
-// * Create a profile
-export const getUserProfile = async (req, res) => {
-  const user = await User.findById(req.user._id)
-  return res.json(user)
-}

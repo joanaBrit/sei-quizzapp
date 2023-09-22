@@ -9,8 +9,9 @@ body {
   min-height: 100vh;
   background-image: url('../images/futuristic.jpg');
   background-size: cover;
+  background-repeat: no-repeat; //Added these 2 new lines otherwise in taking quiz the questionmark in the image would be out of the picture if you had too many questions
+  background-attachment: fixed;
 }
-
 
 main {
   @extend %flex-fill;
@@ -23,7 +24,6 @@ main {
   margin-left: 20px;
 }
 
-
 .subtitle {
   display: flex;
   margin-left: 30px;
@@ -32,12 +32,10 @@ main {
   font-family: $font-f-base;
 }
 
-
 .text-warning {
   padding: 0 20px;
   letter-spacing: 0.5px;
 }
-
 
 .title {
   font-family: $font-f-title;
@@ -49,8 +47,6 @@ main {
   padding: 0 10px;
   margin-left: 13px;
 }
-
-
 
 .btn {
   background-color: $light;

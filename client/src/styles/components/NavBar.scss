@@ -1,3 +1,43 @@
+.dropdown-menu .dropdown-list{
+  background-color: transparent;
+}
+
+.no-decoration{
+  text-decoration: none;
+  color: white;
+  padding: 0 10px;
+  &:hover{
+    background-color: $navy;
+  }
+}
+
 nav{
-  display: flex
+  display: flex;
+  max-width: 100%;
+  justify-content: space-around;
+  font-family: $font-f-base;
+}
+
+
+.dropdown-list {
+  display: flex;
+  flex-direction: column;
+  .quiz-list {
+    display: flex;
+    flex-direction: column;
+    font-family: $font-f-base;
+    color: white;
+    margin: 2px;
+  }
+}
+
+.dropdown-menu.show{
+  box-shadow: 0 0 3px white;
+  background: transparent;
+}
+
+.logout-btn{
+  &:hover{
+    cursor: pointer;
+  }
 }

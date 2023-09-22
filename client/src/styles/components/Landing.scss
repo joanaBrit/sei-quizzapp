@@ -12,7 +12,7 @@
 .display-category img {
   height: 180px;
   width: 100%;
-  border-radius: 3px;
+  border-radius: 8px;
   box-shadow: 0px 1px 20px 6px #163a83;
 }
 
@@ -22,46 +22,35 @@ h3 {
   font-family: $font-f-base;
 }
 
-nav {
-    
-    display: flex;
-    width: 100%;
-    height: 30px;
+.carousel {
+  min-width: 600px;
+}
 
-    .username {
-      font-size: 15px;
-      color: $light;
-    }
-  }
+.carousel .carousel-caption {
+  position: inherit;
+}
 
+.carousel .carousel-indicators button {
+  display: none;
+}
 
-  .carousel .carousel-caption {
-    position: inherit;
-  }
+.carousel .carousel-control-next-icon.change {
+  background-image: url('../../images/arrow.png');
+}
 
-  .carousel .carousel-indicators button {
-    display: none;
-  }
+.carousel .carousel-control-prev-icon.change {
+  background-image: url('../../images/prev_arrow.png');
+}
 
-  .carousel .carousel-control-next-icon.change {
-    background-image: url('../../images/arrow.png');
-  }
+.change {
+  width: 50%;
+}
 
-  .carousel .carousel-control-prev-icon.change {
-    background-image: url('../../images/prev_arrow.png');
-  }
-
-  .change {
-    width: 50%;
-  }
-
-
-
-  .wrap-carousel {
-    min-width: 600px;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-content: flex-end;
-    align-items: stretch;
-  }
+.wrap-carousel {
+  min-width: 600px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: flex-end;
+  align-items: stretch;
+}

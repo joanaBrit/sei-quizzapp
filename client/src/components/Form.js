@@ -9,7 +9,6 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
 
-
 export default function RegisterForm({ title, request, fields, redirect, onLoad }) {
 
   // * Variable
@@ -64,7 +63,7 @@ export default function RegisterForm({ title, request, fields, redirect, onLoad 
 
         const errorMessage = error.response.data.errors
 
-        if (error.response.status === 404 || errorMessage.password.value === '' ) {
+        if (error.response.status === 404 || errorMessage.password.value === '') {
           setErrors('User Not Found.')
           // console.log(errorMessage.password.kind)
 
