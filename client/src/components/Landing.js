@@ -8,7 +8,6 @@ import axios from 'axios'
 
 export default function Landing( { setId } ) {
   const [quizzes, setQuizzes] = useState([])
-  const username = localStorage.getItem('username')
   useEffect(() => {
     setId(false)
     async function getQuizzesData() {
