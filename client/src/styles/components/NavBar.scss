@@ -5,13 +5,17 @@
 .no-decoration{
   text-decoration: none;
   color: white;
+  padding: 0 10px;
+  &:hover{
+    background-color: $navy;
+  }
 }
 
 nav{
   display: flex;
   max-width: 100%;
-  justify-content: space-evenly;
-  font-family: $font-f-title;
+  justify-content: space-around;
+  font-family: $font-f-base;
 }
 
 
@@ -23,10 +27,17 @@ nav{
     flex-direction: column;
     font-family: $font-f-base;
     color: white;
+    margin: 2px;
   }
 }
 
 .dropdown-menu.show{
   box-shadow: 0 0 3px white;
   background: transparent;
+}
+
+.logout-btn{
+  &:hover{
+    cursor: pointer;
+  }
 }

@@ -4,7 +4,7 @@ import axios from 'axios'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import { removeToken } from '../utils/auth'
 
-export default function NavBar( { token, quizname, username, id, setReload }){
+export default function NavBar( { token, quizname, username, id, setReload, setToken }){
 
   const [userId, setUserId] = useState()
   const [quizzes, setQuizzes] = useState()
@@ -31,32 +31,29 @@ export default function NavBar( { token, quizname, username, id, setReload }){
     getUser()
   })
 
-  function logOut(e){
-    e.preventDefault()
-    console.log('Logout')
-    // removeToken
+  function logOut(){
+    setToken()
     removeToken()
-    // Navigate to login
     navigate('/')
   }
 
   return (
     <nav>
-      <NavDropdown title="Quiz List" className={id && id ? 'dropdown-list no-decoration' : 'hidden'}>
-        {quizzes && quizzes.map((quiz, i) => {
-          return (<Link className='quiz-list no-decoration' onClick={e => setReload(true)} key={i} to= {`/quizzes/${quizzes[i]._id}`}>{quiz.title}</Link>)
-        })}
-      </NavDropdown>
-      <Link className={id && id ? 'no-decoration' : 'hidden'} to= '/landing'> View all Quizzes </Link>
       <div className='username'>
-        { username ?
+        { token ?
           <NavDropdown className='dropdown-list' title={`Welcome ${username}`}>
-            <Link className='no-decoration' onClick={logOut}> Log out </Link>
+            <p className='no-decoration logout-btn' onClick={logOut}> Log out </p>
           </NavDropdown>
           :
           <p>Welcome</p>
         }
       </div>
+      <Link className={id && id ? 'no-decoration' : 'hidden'} to= '/landing'> View all Quizzes </Link>
+      <NavDropdown title="Quiz List" className={id && id ? 'dropdown-list no-decoration' : 'hidden'}>
+        {quizzes && quizzes.map((quiz, i) => {
+          return (<Link className='quiz-list no-decoration' onClick={e => setReload(true)} key={i} to= {`/quizzes/${quizzes[i]._id}`}>{quiz.title}</Link>)
+        })}
+      </NavDropdown>
     </nav>
   )
 }

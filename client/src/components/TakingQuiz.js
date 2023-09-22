@@ -81,8 +81,8 @@ export default function TakingQuiz( { token, setShowAll, setId, reload, setReloa
   return (
     <>
       <section id='container'>
-        <Button onClick={changeView}>Switch View</Button>
         <h1>{quiz && quiz.title}</h1>
+        <Button variant='outline-primary' className='switch-btn' onClick={changeView}>Switch View</Button>
         {quiz && quiz.questions.map(({ question, _id },i) => {
           return (
             <div key={i} className="flip-card">
@@ -94,9 +94,9 @@ export default function TakingQuiz( { token, setShowAll, setId, reload, setReloa
                   <h5><div id={i} className='wrap-text' onClick={handleClick}>{correctAnswers[i]}</div></h5>
                 </div>
                 <div className='add-question update-question'>
-                  <Button onClick={deleteQuestion} type='button' className={creator && creator[i] ? 'btn btn-sm btn-block' : 'hidden'}>Delete Question</Button>
+                  <Button onClick={deleteQuestion} type='button' variant='outline-primary' className={creator && creator[i] ? 'btn btn-sm btn-block' : 'hidden'}>Delete Question</Button>
                   <Link to={`/quizzes/${id}/questions/${_id}`}>
-                    <Button type='button' className={creator && creator[i] ? 'btn btn-sm btn-block' : 'hidden'}>Update Question</Button>
+                    <Button type='button' variant='outline-primary' className={creator && creator[i] ? 'btn btn-sm btn-block' : 'hidden'}>Update Question</Button>
                   </Link>
                 </div>
               </div>

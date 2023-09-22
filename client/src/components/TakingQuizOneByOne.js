@@ -100,10 +100,10 @@ export default function TakingQuizOneByOne( { token, setShowAll, setId, reload, 
     <>
     
       <section id='container'>
-        <Button onClick={changeView}>Switch View</Button>
         <h1>{quiz && quiz.title}</h1>
-        <Button id='prev' className={questionNumber !== 0 ? '' : 'disabled' } onClick={(e) => changePage(e)}>Previous Question</Button>
-        <Button id='next' className={questionNumber !== totalQuestions ? '' : 'disabled' } onClick={(e) => changePage(e)}>Next Question</Button>
+        <Button variant='outline-primary' className='switch-btn' onClick={changeView}>Switch View</Button>
+        <Button id='prev' variant='outline-primary' className={questionNumber !== 0 ? 'btn btn-outline-primary' : 'disabled btn btn-outline-primary' } onClick={(e) => changePage(e)}>Previous Question</Button>
+        <Button id='next' variant='outline-primary' className={questionNumber !== totalQuestions ? 'btn btn-outline-primary' : 'disabled btn btn-outline-primary' } onClick={(e) => changePage(e)}>Next Question</Button>
         <div key={questionNumber} className="flip-card">
           <div className="flip-card-inner">
             <div id={questionNumber} onClick={handleClick} className={reveal[questionNumber] ? 'flip-card-back' : 'flip-card-front'}>
@@ -113,9 +113,9 @@ export default function TakingQuizOneByOne( { token, setShowAll, setId, reload, 
               <h5><div id={questionNumber} className='wrap-text' onClick={handleClick}>{correctAnswers[questionNumber]}</div></h5>
             </div>
             <div className='add-question update-question'>
-              <Button onClick={deleteQuestion} type='button' className={creator && creator[questionNumber] ? 'btn btn-sm btn-block' : 'hidden'}>Delete Question</Button>
+              <Button onClick={deleteQuestion} type='button' variant='outline-primary' className={creator && creator[questionNumber] ? 'btn btn-outline-primary' : 'hidden'}>Delete Question</Button>
               <Link to={`/quizzes/${id}/questions/${quiz && quiz.questions[questionNumber]._id}`}>
-                <Button type='button' className={creator && creator[questionNumber] ? 'btn btn-sm btn-block' : 'hidden'}>Update Question</Button>
+                <Button type='button' variant='outline-primary' className={creator && creator[questionNumber] ? 'btn btn-outline-primary' : 'hidden'}>Update Question</Button>
               </Link>
             </div>
           </div>

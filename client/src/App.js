@@ -37,6 +37,7 @@ export default function App() {
             username= { username }
             id={ id }
             setReload={setReload}
+            setToken={setToken}
           />
         </header>
         <main>

@@ -23,8 +23,6 @@ export default function AddQuestionForm( { username, token }) {
 
   async function submitQuestion(event){
     event.preventDefault()
-    console.log('handle submit')
-    console.log(event.target[0].value, event.target[1].value)
 
     await axios.post(`/api/quizzes/${quizId}/questions`,     {
       question: event.target[0].value,
@@ -35,9 +33,7 @@ export default function AddQuestionForm( { username, token }) {
       },
     })
       .then(async function (response) {
-        console.log('Response', response)
-        await setQuestionId(response.data.questions[ response.data.questions.length - 1 ]._id)
-        console.log('questionid', questionId)
+        setQuestionId(response.data.questions[ response.data.questions.length - 1 ]._id)
       })
       .catch(function (error) {
         console.log(error)
