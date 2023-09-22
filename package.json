@@ -7,7 +7,8 @@
     "seed": "node db/seeds.js",
     "serve": "npx nodemon index.js --ignore client",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
+    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build",
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
