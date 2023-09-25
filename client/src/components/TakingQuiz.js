@@ -15,6 +15,8 @@ export default function TakingQuiz( { token, setShowAll, setId, reload, setReloa
   const [reveal, setReveal] = useState([false])
   const [popup, setPopup] = useState(false)
   const [creator, setCreator] = useState([])
+  const [questionId, setQuestionId] = useState()
+  const [counterForId, setCounterForId] = useState()
   const newReveal = []
   const navigate = useNavigate()
   
@@ -40,7 +42,7 @@ export default function TakingQuiz( { token, setShowAll, setId, reload, setReloa
       setCreator([...userCreated])
     }
     getQuizSingle()
-  }, [reload])
+  }, [reload, popup])
 
   function handleClick(e) {
     
@@ -61,26 +63,8 @@ export default function TakingQuiz( { token, setShowAll, setId, reload, setReloa
     
   }
 
-  function clickedYes(){
-    //Send request to delete
-    // axios.delete
-    setPopup(false)
-  }
-
-  function clickedNo(){
-    setPopup(false)
-  }
-  
-  function deleteQuestionConfirm() {
-    setPopup(true)
-  }
-
-  function changeView() {
-    setShowAll(false)
-  }
-
-  async function deleteQuestion(questionId) {
-    axios.delete(`/api/quizzes/${id}/questions/${questionId}`, {
+  async function clickedYes(){
+    axios.delete(`/api/quizzes/${id}/questions/${questionId[counterForId]}`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       },
@@ -91,7 +75,27 @@ export default function TakingQuiz( { token, setShowAll, setId, reload, setReloa
       .catch(function (error) {
         console.log(error)
       })
+    setQuestionId()
+    setPopup(false)
+  }
 
+  function clickedNo(){
+    setPopup(false)
+  }
+  
+  function deleteQuestionConfirm(questId) {
+    const newId = quiz.questions.map(({ _id }, i) => {
+      if ( _id === questId ) {
+        setCounterForId(i)
+        return (_id)
+      }
+    })
+    setQuestionId(newId)
+    setPopup(true)
+  }
+
+  function changeView() {
+    setShowAll(false)
   }
   
   return (
@@ -99,19 +103,9 @@ export default function TakingQuiz( { token, setShowAll, setId, reload, setReloa
       <section id='container'>
         <h1>{quiz && quiz.title}</h1>
         <Button variant='outline-primary' className='switch-btn' onClick={changeView}>Switch View</Button>
-        {quiz && quiz.questions.map(({ question, _id },i) => {
+        {(quiz.questions && quiz.questions.length !== 0) ? quiz && quiz.questions.map(({ question, _id },i) => {
           return (
             <div key={i} className="flip-card">
-              <div className='add-question'>
-                <Link to={`/quizzes/${id}/questions/${_id}`}>
-                  <Button type='button' className='btn btn-sm btn-block'>Update Question</Button>
-                </Link>
-              </div>
-              <div className='add-question'>
-
-                <Button type='button' className='btn btn-sm btn-block'  onClick={deleteQuestion.bind(this, _id)}>Delete Question</Button>
-
-              </div>
               <div className="flip-card-inner">
                 <div id={i} onClick={handleClick} className={reveal[i] ? 'flip-card-back' : 'flip-card-front'}>
                   <h5><div id={i} className='wrap-text' onClick={handleClick}>{question}</div></h5>
@@ -120,7 +114,7 @@ export default function TakingQuiz( { token, setShowAll, setId, reload, setReloa
                   <h5><div id={i} className='wrap-text' onClick={handleClick}>{correctAnswers[i]}</div></h5>
                 </div>
                 <div className='add-question update-question'>
-                  <Button onClick={deleteQuestionConfirm} type='button' variant='outline-primary' className={creator && creator[i] ? 'btn btn-sm btn-block' : 'hidden'}>Delete Question</Button>
+                  <Button onClick={e => deleteQuestionConfirm(_id)} type='button' variant='outline-primary' className={creator && creator[i] ? 'btn btn-sm btn-block' : 'hidden'}>Delete Question</Button>
                   <Link to={`/quizzes/${id}/questions/${_id}`}>
                     <Button type='button' variant='outline-primary' className={creator && creator[i] ? 'btn btn-sm btn-block' : 'hidden'}>Update Question</Button>
                   </Link>
@@ -128,9 +122,12 @@ export default function TakingQuiz( { token, setShowAll, setId, reload, setReloa
               </div>
             </div>
           )
-        })}
+        })
+          :
+          <h3>Unfortunately this quiz is empty</h3>
+        }
       </section>
-      {/* <div className={popup ? 'popup' : 'hidden'}>
+      <div className={popup ? 'popup' : 'hidden'}>
         <div className={popup ? 'popup_inner' : 'hidden'}>
           <h1 className={popup ? 'h1' : 'hidden'}>Are you sure you want to delete the question?</h1>
           <div className='btn-container'>
@@ -138,7 +135,7 @@ export default function TakingQuiz( { token, setShowAll, setId, reload, setReloa
             <Button className={popup ? 'btn btn-sm btn-block' : 'hidden'} onClick={clickedNo}>No</Button>
           </div>
         </div>
-      </div> */}
+      </div>
     </>
   )
 }

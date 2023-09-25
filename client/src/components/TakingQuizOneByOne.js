@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 
@@ -14,11 +14,13 @@ export default function TakingQuizOneByOne( { token, setShowAll, setId, reload, 
   const [reveal, setReveal] = useState([false])
   const [popup, setPopup] = useState(false)
   const [creator, setCreator] = useState([])
+  const [questionId, setQuestionId] = useState()
+  const [counterForId, setCounterForId] = useState()
   const [questionNumber, setQuestionNumber] = useState(0)
   const newReveal = []
   const [totalQuestions, setTotalQuestions] = useState(0)
-  const [deleted, setDeleted] = useState()
-  
+  const navigate = useNavigate()
+
   useEffect(() => {
     async function getQuizSingle(){
       setReload(false)
@@ -46,7 +48,7 @@ export default function TakingQuizOneByOne( { token, setShowAll, setId, reload, 
       setTotalQuestions(counter)
     }
     getQuizSingle()
-  }, [deleted, reload])
+  }, [popup, reload])
   function handleClick(e) {
     
     e.preventDefault()
@@ -76,20 +78,35 @@ export default function TakingQuizOneByOne( { token, setShowAll, setId, reload, 
     setQuestionNumber(i)
   }
   
-  function clickedYes(){
-    let counter = totalQuestions
-    //Send request to delete
-    // axios.delete
+  async function clickedYes(){
+    axios.delete(`/api/quizzes/${id}/questions/${questionId[counterForId]}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    })
+      .then(async function (response) {
+        navigate('/landing')
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
+    setQuestionId()
     setPopup(false)
-    setDeleted(counter--)
+  }
+  
+  function deleteQuestionConfirm(questId) {
+    const newId = quiz.questions.map(({ _id }, i) => {
+      if ( _id === questId ) {
+        setCounterForId(i)
+        return (_id)
+      }
+    })
+    setQuestionId(newId)
+    setPopup(true)
   }
   
   function clickedNo(){
     setPopup(false)
-  }
-  
-  function deleteQuestion() {
-    setPopup(true)
   }
   
   function changeView() {
@@ -102,23 +119,32 @@ export default function TakingQuizOneByOne( { token, setShowAll, setId, reload, 
       <section id='container'>
         <h1>{quiz && quiz.title}</h1>
         <Button variant='outline-primary' className='switch-btn' onClick={changeView}>Switch View</Button>
-        <Button id='prev' variant='outline-primary' className={questionNumber !== 0 ? 'btn btn-outline-primary' : 'disabled btn btn-outline-primary' } onClick={(e) => changePage(e)}>Previous Question</Button>
-        <Button id='next' variant='outline-primary' className={questionNumber !== totalQuestions ? 'btn btn-outline-primary' : 'disabled btn btn-outline-primary' } onClick={(e) => changePage(e)}>Next Question</Button>
+        {(totalQuestions !== 0 && totalQuestions !== -1) ? <>
+          <Button id='prev' variant='outline-primary' className={questionNumber !== 0 ? 'btn btn-outline-primary' : 'disabled btn btn-outline-primary' } onClick={(e) => changePage(e)}>Previous Question</Button>
+          <Button id='next' variant='outline-primary' className={questionNumber !== totalQuestions ? 'btn btn-outline-primary' : 'disabled btn btn-outline-primary' } onClick={(e) => changePage(e)}>Next Question</Button>
+        </>
+          :
+          <></>
+        }
         <div key={questionNumber} className="flip-card">
-          <div className="flip-card-inner">
-            <div id={questionNumber} onClick={handleClick} className={reveal[questionNumber] ? 'flip-card-back' : 'flip-card-front'}>
-              <h5><div id={questionNumber} className='wrap-text' onClick={handleClick}>{quiz && quiz.questions[questionNumber].question}</div></h5>
+          {(totalQuestions !== 0 && totalQuestions !== -1) ?
+            <div className="flip-card-inner">
+              <div id={questionNumber} onClick={handleClick} className={reveal[questionNumber] ? 'flip-card-back' : 'flip-card-front'}>
+                <h5><div id={questionNumber} className='wrap-text' onClick={handleClick}>{quiz && quiz.questions[questionNumber] && quiz.questions[questionNumber].question}</div></h5>
+              </div>
+              <div id={questionNumber} onClick={handleClick} className={!reveal[questionNumber] ? 'flip-card-back' : 'flip-card-front'}>
+                <h5><div id={questionNumber} className='wrap-text' onClick={handleClick}>{correctAnswers[questionNumber]}</div></h5>
+              </div>
+              <div className='add-question update-question'>
+                <Button onClick={e => deleteQuestionConfirm(quiz && quiz.questions[questionNumber] && quiz.questions[questionNumber]._id)} type='button' variant='outline-primary' className={creator && creator[questionNumber] ? 'btn btn-outline-primary' : 'hidden'}>Delete Question</Button>
+                <Link to={`/quizzes/${id}/questions/${quiz && quiz.questions[questionNumber] && quiz.questions[questionNumber]._id}`}>
+                  <Button type='button' variant='outline-primary' className={creator && creator[questionNumber] ? 'btn btn-outline-primary' : 'hidden'}>Update Question</Button>
+                </Link>
+              </div>
             </div>
-            <div id={questionNumber} onClick={handleClick} className={!reveal[questionNumber] ? 'flip-card-back' : 'flip-card-front'}>
-              <h5><div id={questionNumber} className='wrap-text' onClick={handleClick}>{correctAnswers[questionNumber]}</div></h5>
-            </div>
-            <div className='add-question update-question'>
-              <Button onClick={deleteQuestion} type='button' variant='outline-primary' className={creator && creator[questionNumber] ? 'btn btn-outline-primary' : 'hidden'}>Delete Question</Button>
-              <Link to={`/quizzes/${id}/questions/${quiz && quiz.questions[questionNumber]._id}`}>
-                <Button type='button' variant='outline-primary' className={creator && creator[questionNumber] ? 'btn btn-outline-primary' : 'hidden'}>Update Question</Button>
-              </Link>
-            </div>
-          </div>
+            :
+            <h3>Unfortunately this quiz is empty</h3>
+          }
         </div>
       </section>
       <div className={popup ? 'popup' : 'hidden'}>
